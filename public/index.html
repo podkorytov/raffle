@@ -1,46 +1,50 @@
 <!doctype html>
 <html>
 <head>
-	<meta charset="UTF-8">
-	<title>Web QR</title>
-	<link rel="stylesheet" href="media/css/main.css">
-	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
-	<script type="text/javascript" src="media/js/llqrcode.js"></script>
-	<script type="text/javascript" src="media/js/webqr.js"></script>
+    <meta charset="UTF-8">
+    <title>Web QR</title>
+    <link rel="stylesheet" href="media/css/main.css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+    <script type="text/javascript" src="media/js/llqrcode.js"></script>
+    <script type="text/javascript" src="media/js/webqr.js"></script>
 </head>
 <body>
 <div id="c"></div>
 <div id="mainbody">
-	<div>
-		<div id="outdiv"></div>
-	</div>
-	<div id="info_speech">
-		А теперь назовите себя
-	</div>
-	<div id="result">
-		<div class="img-holder">
-			<img id="userpic" src="" />
-		</div>
-		<p>Привет, <span id="name"></span>. Твой номер <span id="user_id"></span>.</p>
-		<p>Добро пожаловать на корпоратив, мы очень рады, что ты с нами!</p>
-		<p class="small">Ждите <span id="timer">10</span> сек.</p>
-	</div>
+    <div>
+        <div id="outdiv"></div>
+    </div>
+    <div id="info_speech">
+        А теперь назовите себя
+    </div>
+    <div id="result">
+        <div class="img-holder">
+            <img id="userpic" src=""/>
+        </div>
+        <p>Привет, <span id="name"></span>. Твой номер <span id="user_id"></span>.</p>
+
+        <p>Добро пожаловать на корпоратив, мы очень рады, что ты с нами!</p>
+
+        <p class="small">Ждите <span id="timer">10</span> сек.</p>
+    </div>
 </div>
 <canvas id="qr-canvas" width="1024" height="768"></canvas>
 <script type="text/javascript">
-	var cropProps = {
-		left : 0,
-		top : 0,
-		height : 0,
-		width : 0
-	};
-	load();
+    var cropProps = {
+        left: 0,
+        top: 0,
+        height: 0,
+        width: 0
+    };
+    load();
 </script>
-<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.7/socket.io.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <script src="media/js/html2canvas.js"></script>
 <script src="media/js/jquery.facedetection.min.js"></script>
 <script src="media/js/speech.js"></script>
 <script src="media/js/detect.js"></script>
+<script src="media/js/socket.js"></script>
 </body>
 
 </html>

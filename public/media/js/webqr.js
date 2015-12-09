@@ -47,6 +47,7 @@ function read(a) {
     document.getElementById("user_id").innerHTML = htmlEntities(a);
     captureVideoToImg();
     showDetection();
+    sendRegister(a);
     v.pause();
     startTimer();
 }
