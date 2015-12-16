@@ -152,8 +152,9 @@ if (!('webkitSpeechRecognition' in window)) {
         document.getElementById("name").innerHTML = linebreak(final_transcript);
         //interim_span.innerHTML = linebreak(interim_transcript);
         if (final_transcript || interim_transcript) {
-            document.getElementById("info_speech").innerHTML = 'Осталось совсем немного - улыбнитесь в квадрат и покажите QR код камере';
+            //document.getElementById("info_speech").innerHTML = 'Осталось совсем немного - покажите QR код камере';
             recognition.stop();
+            step3();
         }
     };
 }

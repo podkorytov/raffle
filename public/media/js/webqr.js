@@ -45,11 +45,8 @@ function htmlEntities(str) {
 
 function read(a) {
     document.getElementById("user_id").innerHTML = htmlEntities(a);
-    captureVideoToImg();
-    showDetection();
-    sendRegister(a);
-    v.pause();
-    startTimer();
+    step2();
+    //startTimer();
 }
 
 function isCanvasSupported() {
