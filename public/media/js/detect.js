@@ -1,3 +1,5 @@
+var userDataObject = {}
+
 function step2() {
     $('#step1').animate({'left' : '-100%'});
     $('#step2').animate({'left' : 0});
@@ -28,6 +30,10 @@ function startTimer() {
         flashBg();
         captureVideoToImg();
         step4();
+        userDataObject.Name = $('#name').text();
+        userDataObject.Code = $('#user_id').text();
+        $('#newGuyData').val(JSON.stringify(userDataObject));
+        sendSocket();
     },5000)
 }
 
@@ -40,7 +46,7 @@ function captureVideoToImg() {
     ctx.fillRect(0,0,canvasVideo.width,canvasVideo.height);
     ctx.drawImage(videoForCapturing, 0, 0, canvasVideo.width, canvasVideo.height);
     var dataURI = canvasVideo.toDataURL('image/jpeg');
-    $('#userpic').attr('src', dataURI);
+    userDataObject.Photo = dataURI;
 }
 
 // Animations

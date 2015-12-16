@@ -9,6 +9,11 @@ function sendRegister(qr) {
     socket.emit('new_guy', regData);
 }
 
+function sendSocket() {
+    var data = $('#newGuyData').val();
+    socket.send(data);
+}
+
 $(function() {
 
     socket = new WebSocket('ws://localhost:8095');
@@ -19,9 +24,4 @@ $(function() {
 
         socket.send(JSON.stringify({ my: 'data' }));
     };
-
-    $('#sendNewGuy').click(function(){
-        var data = $('#newGuyData').val();
-        socket.send(data);
-    });
 });
