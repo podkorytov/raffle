@@ -1,0 +1,48 @@
+body {
+	background:#fff;
+	color:#000;
+	overflow-y:auto;
+	position:relative;
+	min-height:100%;
+	text-align:left;
+	font-family:'Open Sans', sans-serif;
+	overflow-x:hidden;
+}
+#users {
+	display:inline-block;
+	width:49%;
+}
+#instafeed {
+	display:inline-block;
+	width:49%;
+}
+#instafeed .onephoto {
+	margin:100px auto 0;
+	position:relative;
+	width:600px;
+}
+#instafeed .onephoto img {
+	width:100%;
+}
+#instafeed .onephoto .info {
+	background:rgba(0,0,0,0.8);
+	bottom:0;
+	color:#fff;
+	height:80px;
+	left:0;
+	position:absolute;
+	text-align:center;
+	width:100%;
+}
+#instafeed .onephoto .info .userpic {
+	border-radius:50%;
+	height:50px;
+	margin-right:15px;
+	overflow:hidden;
+	width:50px;
+}
+#instafeed .onephoto .info span {
+	font-size:22px;
+	position:relative;
+	top:7px;
+}
