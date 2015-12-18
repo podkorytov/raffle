@@ -65,6 +65,7 @@ h1 {
 }
 #users img {
 	max-width:100%;
+	display:block;
 }
 #instafeed {
 	display:inline-block;
