@@ -28,6 +28,14 @@ function getFeed() {
                     $div.appendTo($feed);
                 }
             }
+
+            $feed.owlCarousel({
+                autoPlay: 5000,
+                slideSpeed: 300,
+                paginationSpeed: 400,
+                singleItem: true,
+                transitionStyle: "fade"
+            }).css("display", "inline-block");
         }
     })
 }
