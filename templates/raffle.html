@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Raffle</title>
+  </head>
+  <body>
+    <h1>Raffle</h1>
+    <ul id="messages"></ul>
+<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+
+  var socket = io();
+
+  socket.on('raffle', function(msg){
+    $('#messages').append($('<li>').text(msg));
+    console.log(msg);
+  });
+
+</script>
+  </body>
+</html>

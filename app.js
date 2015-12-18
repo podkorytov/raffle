@@ -1,41 +1,42 @@
-#!/usr/bin/nodejs
+var app = require('express')();
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+var events = require('./events.js');
 
-var express = require('express'),
-    app = express(),
-    server = require('http').Server(app),
-    wss = new require('ws').Server({port: process.env.WS_PORT || 8095}),
-    port = process.env.PORT || 8065;
-
-server.listen(port);
-app.use(express.static('public'));
-
-app.get('/reg', function(req, res) {
-    res.sendfile(__dirname + '/public/index.html');
+app.get('/a', function(req, res){
+  res.sendfile('templates/admin.html');
+});
+app.get('/r', function(req, res){
+  res.sendfile('templates/registration.html');
+});
+app.get('/', function(req, res){
+  res.sendfile('templates/raffle.html');
 });
 
-app.get('/veiw', function(req, res) {
-    res.sendfile(__dirname + '/public/view.html');
+
+http.listen(3000, function(){
+
 });
 
-wss.broadcast = function broadcast(data) {
-    wss.clients.forEach(function each(client) {
-        client.send(data);
-    });
-};
 
-wss.on('connection', function (ws) {
-    var allGuests = [
-        {
-            name: 'Вася',
-            ava: '/sjdasjdasjd.jpg',
-            is_online: true,
-            inside: '24 декабря'
-        }
-    ];
+io.on('connection', function(socket){
+  socket.on('raffle', function(msg){
+    events.raffleToAdmin(msg);
+    events.raffleToRegister(msg);
+  });
+});
 
-    ws.send(JSON.stringify(allGuests));
+io.on('connection', function(socket){
+  socket.on('admin', function(msg){
+    events.adminToRegistration(msg);
+    events.adminToReffle(msg);
+  });
+});
 
-    ws.on('message', function (message) {
-        console.log(message);
-    });
+io.on('connection', function(socket){
+  socket.on('registration', function(msg){
+      events.registrationToRaffle(msg, function(user) {
+        io.emit('raffle', user);
+      });
+  });
 });

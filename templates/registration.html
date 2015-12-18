@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Registration</title>
+  </head>
+  <body>
+    <h1>Регистрация</h1>
+    <ul id="messages"></ul>
+    <a href="#" id="registration">Зарегистрироваться</a>
+<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+
+  var socket = io();
+
+  var msg = {name:'Paulo', code: 175};
+
+  $('#registration').on('click', function() {
+    socket.emit('registration', msg);
+    return false;
+  });
+
+  socket.on('registration', function(msg){
+    $('#messages').append($('<li>').text(msg));
+    console.dir(msg);
+  });
+
+</script>
+  </body>
+</html>
