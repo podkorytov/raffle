@@ -102,6 +102,7 @@ h1 span.goanim {
 }
 #users img {
 	max-width:100%;
+	display:block;
 }
 #instafeed {
 	display:inline-block;

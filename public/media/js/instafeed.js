@@ -3,18 +3,28 @@
  */
 var hashTag = 'vsemayki';
 var feedLength = 3;
+var feedUpdateInterval = 60000;
 var $feed = $('#instafeed');
 var token = '19182223.6e63162.3f6b8b2a656e446f99519374978261b0';
 var selectTimer = 13;
 
 function getFeed() {
     $feed.find('div').remove();
+
+    $feed.owlCarousel({
+        autoPlay: 5000,
+        slideSpeed: 300,
+        paginationSpeed: 400,
+        singleItem: true,
+        transitionStyle: "fade"
+    });
+
     $.ajax({
-        type : 'GET',
-        dataType : 'jsonp',
-        cache : false,
-        url : 'https://api.instagram.com/v1/tags/' + hashTag + '/media/recent?access_token=' + token + '&count=' + feedLength,
-        success : function(data) {
+        type: 'GET',
+        dataType: 'jsonp',
+        cache: false,
+        url: 'https://api.instagram.com/v1/tags/' + hashTag + '/media/recent?access_token=' + token + '&count=' + feedLength,
+        success: function (data) {
             var n = 0;
             for (var postIdx in data.data) {
                 if (data.data.hasOwnProperty(postIdx)) {
@@ -25,31 +35,43 @@ function getFeed() {
                             .append($('<p>').addClass('user')
                                 .append($('<img/>').addClass('userpic').attr('src', post.user.profile_picture).attr('align', 'middle'))
                                 .append($('<span/>').text('@' + post.user.username))));
-                    $div.appendTo($feed);
+                    $feed.data('owlCarousel').addItem($div);
                 }
             }
-
-            $feed.owlCarousel({
-                autoPlay: 5000,
-                slideSpeed: 300,
-                paginationSpeed: 400,
-                singleItem: true,
-                transitionStyle: "fade"
-            }).css("display", "inline-block");
+            $feed.css("display", "inline-block");
         }
     })
 }
+
+/**
+ * Обновление ленты instagram через равные промежутки времени.
+ * @param {number} delay - Интервал в миллисекундах.
+ * @return {number} - intervalID
+ */
+function initFeedUpdate(delay) {
+    getFeed();
+    return setInterval(function () {
+        getFeed();
+    }, delay);
+}
+
 var selectInterval;
 var winner;
+
+/**
+ * Запускает анимацию розыгрыша.
+ * @param {number} num - Номер победителя.
+ */
 function startRaffle(num) {
     audio(true);
-    $('#users .user').animate({'width' : '6.5%'}, 200);
-    setTimeout(function() {
-        $feed.animate({'width' : 0}, 200);
-        $('#users').animate({'width' : '100%'}, 200);
+    var $users = $('#users');
+    $users.find('.user').animate({'width': '6.5%'}, 200);
+    setTimeout(function () {
+        $feed.animate({'width': 0}, 200);
+        $users.animate({'width': '100%'}, 200);
     }, 200);
     winner = num;
-    setTimeout(function() {
+    setTimeout(function () {
         selectInterval = setInterval(userSelect, 100);
         danceLogo(true);
     },3700)
