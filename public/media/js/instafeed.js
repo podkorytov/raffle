@@ -44,8 +44,8 @@ function getFeed() {
 }
 
 /**
- * Обновление ленты instagram через равные промежутки времени.
- * @param {number} delay - Интервал в миллисекундах.
+ * РћР±РЅРѕРІР»РµРЅРёРµ Р»РµРЅС‚С‹ instagram С‡РµСЂРµР· СЂР°РІРЅС‹Рµ РїСЂРѕРјРµР¶СѓС‚РєРё РІСЂРµРјРµРЅРё.
+ * @param {number} delay - РРЅС‚РµСЂРІР°Р» РІ РјРёР»Р»РёСЃРµРєСѓРЅРґР°С….
  * @return {number} - intervalID
  */
 function initFeedUpdate(delay) {
@@ -59,8 +59,8 @@ var selectInterval;
 var winner;
 
 /**
- * Запускает анимацию розыгрыша.
- * @param {number} num - Номер победителя.
+ * Р—Р°РїСѓСЃРєР°РµС‚ Р°РЅРёРјР°С†РёСЋ СЂРѕР·С‹РіСЂС‹С€Р°.
+ * @param {number} num - РќРѕРјРµСЂ РїРѕР±РµРґРёС‚РµР»СЏ.
  */
 function startRaffle(num) {
     audio(true);
