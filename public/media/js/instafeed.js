@@ -51,7 +51,8 @@ function startRaffle(num) {
     winner = num;
     setTimeout(function() {
         selectInterval = setInterval(userSelect, 100);
-    },4040)
+        danceLogo(true);
+    },3700)
 }
 var t=0;
 function userSelect() {
@@ -67,23 +68,22 @@ function userSelect() {
         clearInterval(selectInterval);
         var $elem = $('.user').eq(winner);
         $($elem).addClass('hover-blue');
-        showWinner($elem.find('img').attr('src'));
+        showWinner($elem.find('img').attr('src'),$elem.find('img').attr('data-name'),$elem.find('img').attr('data-code'));
+        danceLogo(false);
+    }
+}
+
+function showWinner(image, name, code) {
+    var $winnerPopup = $('#winner');
+    $winnerPopup.find('img').attr('src', image);
+    $winnerPopup.find('.name').text(name);
+    $winnerPopup.find('.code').text(code);
+    $winnerPopup.modal('show');
+    setTimeout(function() {
         audio(false);
-    }
+        raffleEnd();
+    },13750)
 }
-
-function showWinner(image) {
-    /*$('#winner').find('img').attr('src', image);
-    $('#winner').modal('show');*/
-}
-
-
-$(function() {
-    getFeed();
-    for (var i=0; i<90; i++) {
-        $('<div class="user"><img src="https://scontent.cdninstagram.com/hphotos-xfp1/t51.2885-15/s750x750/sh0.08/e35/12394029_1623922857868593_205865308_n.jpg"></div>').appendTo('#users');
-    }
-});
 
 function audio(start) {
     var audio = document.getElementsByTagName("audio")[0];
@@ -91,5 +91,32 @@ function audio(start) {
         audio.play();
     } else {
         audio.pause();
+        audio.currentTime = 0;
     }
 }
+
+function danceLogo(start) {
+    if (start) {
+        $('h1 span').addClass('goanim');
+    } else {
+        $('h1 span').removeClass('goanim');
+    }
+}
+
+function raffleEnd() {
+    t=0;
+    $('#winner').modal('hide');
+    $('.user').removeClass('hover-blue');
+    $feed.animate({'width' : '49%'}, 200);
+    $('#users').animate({'width' : '50%'}, 200);
+    setTimeout(function() {
+        $('#users .user').animate({'width' : '10%'}, 200);
+    }, 200);
+}
+
+$(function() {
+    getFeed();
+    for (var i=0; i<90; i++) {
+        $('<div class="user"><img data-name="Имя телки" data-code="asdSDfsdf23s" src="https://scontent.cdninstagram.com/hphotos-xfp1/t51.2885-15/s750x750/sh0.08/e35/12394029_1623922857868593_205865308_n.jpg"></div>').appendTo('#users');
+    }
+});
