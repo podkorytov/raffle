@@ -36,7 +36,7 @@
 
 .site-page { max-width:990px; min-width:990px; width:990px; box-sizing:border-box; -webkit-box-sizing:border-box; -moz-box-sizing:border-box; }
 
-.grid h3 { width:990px; }
+.grid h1 { width:990px; font-family:'bebas_neue_regularregular', 'Tahoma', sans-serif; color:#fff; }
 
 .chart.chart-seconds,
 .flip-clock-divider.seconds,
