@@ -51,7 +51,7 @@ function startRaffle(num) {
     winner = num;
     setTimeout(function() {
         selectInterval = setInterval(userSelect, 100);
-    },4050)
+    },4040)
 }
 var t=0;
 function userSelect() {
@@ -70,6 +70,11 @@ function userSelect() {
         showWinner($elem.find('img').attr('src'));
         audio(false);
     }
+}
+
+function showWinner(image) {
+    /*$('#winner').find('img').attr('src', image);
+    $('#winner').modal('show');*/
 }
 
 
