@@ -68,6 +68,7 @@ function startRaffle(num) {
     $users.find('.user').animate({'width': '6.5%'}, 200);
     setTimeout(function () {
         $feed.animate({'width': 0}, 200);
+        $feed.css('visibility', 'hidden');
         $users.animate({'width': '100%'}, 200);
     }, 200);
     winner = num;
@@ -130,6 +131,7 @@ function raffleEnd() {
     $('#winner').modal('hide');
     $('.user').removeClass('hover-blue');
     $feed.animate({'width' : '49%'}, 200);
+    $feed.css('visibility', 'visible');
     $('#users').animate({'width' : '50%'}, 200);
     setTimeout(function() {
         $('#users .user').animate({'width' : '10%'}, 200);
@@ -141,4 +143,7 @@ $(function() {
     for (var i=0; i<90; i++) {
         $('<div class="user"><img data-name="Имя телки" data-code="asdSDfsdf23s" src="https://scontent.cdninstagram.com/hphotos-xfp1/t51.2885-15/s750x750/sh0.08/e35/12394029_1623922857868593_205865308_n.jpg"></div>').appendTo('#users');
     }
+    $('h1 span').click(function() {
+        startRaffle(55);
+    });
 });
