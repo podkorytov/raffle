@@ -29,7 +29,9 @@ io.on('connection', function(socket){
 io.on('connection', function(socket){
   socket.on('admin', function(msg){
     events.adminToRegistration(msg);
-    events.adminToReffle(msg);
+    events.adminToRaffle(msg, function(viktorine) {
+      io.emit('raffle', viktorine);
+    });
   });
 });
 

@@ -1,19 +1,31 @@
 var db = require('./db_model.js');
 
 module.exports.raffleToAdmin = function(msg) {
-    io.emit('admin', 'Можно начать новый конкурс');
+//    io.emit('admin', 'Можно начать новый конкурс');
 };
 
 module.exports.raffleToRegister = function(msg) {
-    io.emit('registration', 'Регистрация открыта');
+//    io.emit('registration', 'Регистрация открыта');
 };
 
 module.exports.adminToRegistration = function(msg) {
-    io.emit('registration', 'Регистрация приостановлена');
+//    io.emit('registration', 'Регистрация приостановлена');
 };
 
-module.exports.adminToReffle = function(msg) {
-    io.emit('raffle', 'Старт лотереи');
+module.exports.adminToRaffle = function(msg, callback) {
+    var type = msg.type;
+
+    db.User.getRandom(function(err, docs) {
+        var victorine = new db.Victorine({winner: docs[0], type: type, prize:'Iphone'});
+        victorine.save(function(err) {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log(victorine);
+                callback(victorine);
+            }
+        });
+    });
 };
 
 module.exports.registrationToAdmin = function(msg) {
