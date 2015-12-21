@@ -93,7 +93,8 @@ function userSelect() {
         clearInterval(selectIntervalId);
         var $elem = $('.user').eq(winner);
         $($elem).addClass('hover-blue');
-        showWinner($elem.find('img').attr('src'),$elem.find('img').attr('data-name'),$elem.find('img').attr('data-code'));
+        var $userData = $elem.find('.user-data');
+        showWinner($userData.data('src'), $userData.data('name'), $userData.data('code'));
         danceLogo(false);
     }
 }
@@ -144,7 +145,8 @@ function raffleEnd() {
 $(function() {
     feedUpdateIntervalId = initFeedUpdate(feedUpdateInterval);
     for (var i=0; i<90; i++) {
-        $('<div class="user"><img data-name="Имя телки" data-code="asdSDfsdf23s" src="https://scontent.cdninstagram.com/hphotos-xfp1/t51.2885-15/s750x750/sh0.08/e35/12394029_1623922857868593_205865308_n.jpg"></div>').appendTo('#users');
+        var imgSrc = "'https://scontent.cdninstagram.com/hphotos-xfp1/t51.2885-15/s750x750/sh0.08/e35/12394029_1623922857868593_205865308_n.jpg'";
+        $('<div class="user" style="background-image:url('+ imgSrc +');"><div class="user-data" data-name="Имя телки" data-code="asdSDfsdf23s" data-src=' + imgSrc + '></div>').appendTo('#users');
     }
     $('h1 span').click(function() {
         startRaffle(55);

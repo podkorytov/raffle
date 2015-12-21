@@ -109,7 +109,14 @@ h1 span.goanim i {
 	border:6px solid #000;
 	display:inline-block;
 	width:10%;
+	overflow: hidden;
+	background: transparent none repeat scroll 50% 50% / cover;
 }
+#users .user .user-data {
+	width: 100%;
+	padding-bottom: 100%;
+}
+
 #users .user.hover {
 	border-color:#ec008c;
 }
