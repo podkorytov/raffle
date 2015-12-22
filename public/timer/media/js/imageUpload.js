@@ -27,7 +27,7 @@ $(function () {
     $userPhotoInput.on("change", FileSelectHandler);
 
     $regButton.on("click", function () {
-        if (validateFields()) {
+        if (($userResultImage.attr("src").length > 22) && ($userName.val().length > 0) && ($userCode.val().length > 0)) {
             var msg = {
                 name:$userName.val(),
                 code: $userCode.val(),
@@ -37,10 +37,10 @@ $(function () {
         }
     });
 
-    socket.on('registration', function(msg){
-        //$('#messages').append($('<li>').text(msg));
-        console.dir(msg);
-    });
+    //socket.on('registration', function(msg){
+    //    //$('#messages').append($('<li>').text(msg));
+    //    console.dir(msg);
+    //});
 
     /**
      * Обрабатывает загруженные пользователем файлы. Проверяет формат файлов.
@@ -179,17 +179,6 @@ $(function () {
         var context = canvas.getContext('2d');
         context.drawImage(image, sx, sy, swidth, sheight, 0, 0, canvas.width, canvas.height);
         return canvas.toDataURL('image/png');
-    }
-
-    /**
-     * Проверяет заполнение полей для регистрации.
-     * @returns {boolean}
-     */
-    function validateFields() {
-        var imgCorrect = ($userResultImage.attr("src").length > 22);
-        var nameCorrect = ($userName.val().length > 0);
-        var codeCorrect = ($userCode.val().length > 0);
-        return (imgCorrect && nameCorrect && codeCorrect);
     }
 
 });
