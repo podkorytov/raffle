@@ -40,7 +40,33 @@
 <script src="/socket.io/socket.io.js"></script>
 <script>
 
-  var socket = io();
+    <div class="container">
+      <h1 class="page-header">Регистрация</h1>
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <form>
+            <div class="form-group">
+              <label for="nameInputText">Имя</label>
+              <input type="text" class="form-control" id="nameInputText" placeholder="">
+            </div>
+            <div class="form-group">
+              <label for="codeInputNumber">Код</label>
+              <input type="number" class="form-control" id="codeInputNumber" placeholder="">
+            </div>
+            <div class="form-group">
+              <label for="photoInputFile">Загрузите ваше фото:</label>
+              <input type="file" id="photoInputFile">
+              <p class="help-block">допустимые форматы: JPG, PNG.</p>
+            </div>
+            <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+          </form>
+        </div>
+      </div>
+      <!--
+      <ul id="messages"></ul>
+      <a href="#" id="registration">Зарегистрироваться</a>
+      -->
+    </div>
 
   var msg = $('#newGuyData').val();
 var user = {name: 'Poli', code: '342'};
@@ -53,10 +79,7 @@ var user = {name: 'Poli', code: '342'};
     socket.emit('registration', msg);
   }
 
-  socket.on('registration', function(msg){
-    $('#messages').append($('<li>').text(msg));
-    console.dir(msg);
-  });
+      var msg = {name:'Paulo', code: 175};
 
 </script>
 </body>

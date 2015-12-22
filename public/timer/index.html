@@ -46,6 +46,29 @@
 						<div class="started">Что-то будет через</div>
                         <div class="clock" data-labels="Дней,Часов,Минут,Секунд"></div>
                     </div>
+                    <div class="grid__item one-whole push--top">
+                        <div class="form-flip push--top">
+                            <button class="form-flip__enabler btn btn--full">регистрация</button>
+                            <div class="form-flip__target">
+                                <form class="form-ajax" data-success-response="success" action="mailListHandler.php" method="post">
+                                    <div class="input-group">
+                                        <input class="text-input" name="email" type="text" placeholder="Имя" data-msg-required="Обязательное поле" data-msg-email="Пожалуйста, введите ваше Имя." required>
+                                        <input class="text-input user-code" name="tel" type="number" placeholder="Код" data-msg-required="Обязательное поле" data-msg-email="Пожалуйста, введите ваш код." required>
+                                        <input class="file-input user-photo" name="photo" type="file" placeholder="Ваше фото" id="photoInputFile" data-msg-required="Обязательное поле" data-msg-email="Пожалуйста, прикрепите ваше фото." required size="1">
+                                        <div class="input-group-addon">
+                                            <button class="btn btn--font-black" type="submit" autocomplete="off"><span>ок</span><i class="form-spinner fa fa-spinner"></i></button>
+                                        </div>
+                                    </div>
+
+                                    <input type="hidden" name="subscribe">
+
+                                    <input type="text" name="important-info">
+                                    <!-- Don't remove the above field. It is a decoy to prevent spam -->
+                                </form>
+                            </div>
+                            <button class="form-flip__close btn btn--full">Спасибо, ловите письмо!</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

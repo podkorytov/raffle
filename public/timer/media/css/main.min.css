@@ -3678,8 +3678,8 @@ input::-webkit-input-placeholder,textarea::-webkit-input-placeholder {
 }
 
 .text-input:active,.text-input:focus,select:active,select:focus,textarea:active,textarea:focus {
-    -webkit-box-shadow: 0 0 8px 0 rgba(255,255,255,.4);
-    box-shadow: 0 0 8px 0 rgba(255,255,255,.4);
+    /*-webkit-box-shadow: 0 0 8px 0 rgba(255,255,255,.4);*/
+    /*box-shadow: 0 0 8px 0 rgba(255,255,255, .4);*/
 }
 
 textarea {
