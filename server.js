@@ -6,7 +6,7 @@ var express = require('express'),
     events = require('./events.js'),
     port = process.env.PORT || 8099;
 
-app.use(express.static(path.join(__dirname, '/')));
+app.use(express.static(path.join(__dirname, '/public')));
 
 app.get('/adm', function(req, res) {
     res.sendfile('templates/admin.html');
