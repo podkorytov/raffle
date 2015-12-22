@@ -1,4 +1,5 @@
 var userDataObject = {};
+var socket = io();
 
 function step2() {
     $('#step1').animate({'left': '-100%'});
@@ -19,7 +20,6 @@ function step4() {
 
 function startTimer() {
     var time = 4;
-    var isSended = false;
     var timerInterval = setInterval(function() {
         if (time > 0) {
             $('#timer').text(time);
@@ -32,14 +32,16 @@ function startTimer() {
         step4();
         userDataObject.name = $('#name').text();
         userDataObject.code = $('#user_id').text();
-        userDataObject.user_img = captureVideoToImg();
+        userDataObject.img_content = captureVideoToImg();
         userDataObject.in_corp = true;
         $('#newGuyData').val(JSON.stringify(userDataObject));
-        if (!isSended) {
-            sendSocket();
-            isSended = true;
-        }
+        sendSocket();
     },5000)
+}
+
+function sendSocket() {
+    var data = $('#newGuyData').val();
+    socket.emit('registration', data);
 }
 
 function captureVideoToImg() {
@@ -50,7 +52,7 @@ function captureVideoToImg() {
     var ctx = canvasVideo.getContext('2d');
     ctx.fillRect(0, 0, canvasVideo.width, canvasVideo.height);
     ctx.drawImage(videoForCapturing, 0, 0, canvasVideo.width, canvasVideo.height);
-    var dataURI = canvasVideo.toDataURL('image/jpeg');
+    var dataURI = canvasVideo.toDataURL('image/png');
     return dataURI;
 }
 
