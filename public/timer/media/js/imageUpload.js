@@ -17,7 +17,7 @@ $(function () {
     var $userResultImage = $('#userImg');
     var $regButton = $('.btn-ok');
 
-    var socket = io();
+    //var socket = io();
 
     $userPhotoButton.click(function (e) {
         e.preventDefault();
