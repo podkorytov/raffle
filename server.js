@@ -25,6 +25,15 @@ http.listen(port, function() {
 });
 
 io.on('connection', function(socket) {
+
+    events.guestsListsToRaffle(function(error, users) {
+        if (error) {
+            console.log(error);
+        } else {
+            io.emit('guests', users);
+        }
+    });
+
     socket.on('raffle', function(msg) {
         events.raffleToAdmin(msg);
         events.raffleToRegister(msg);

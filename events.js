@@ -55,11 +55,16 @@ var registrationToRaffle = function(data, callback) {
     }
 };
 
+var guestsListsToRaffle = function(callback) {
+    db.User.find({}, callback);
+};
+
 module.exports = {
     raffleToAdmin: raffleToAdmin,
     raffleToRegister: raffleToRegister,
     adminToRegistration: adminToRegistration,
     adminToRaffle: adminToRaffle,
     registrationToAdmin: registrationToAdmin,
-    registrationToRaffle: registrationToRaffle
+    registrationToRaffle: registrationToRaffle,
+    guestsListsToRaffle: guestsListsToRaffle
 };
