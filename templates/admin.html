@@ -4,21 +4,43 @@
     <title>Admin</title>
   </head>
   <body>
+  <style>
+  body {
+    background:#000;
+    color:#fff;
+    font-family:'Arial', sans-serif;
+    text-align:center;
+
+  }
+  a {
+    background:#00aeef;
+    color:#fff;
+    display:block;
+    text-decoration:none;
+    width:80%;
+    height:150px;
+    line-height:150px;
+    font-size:30px;
+    margin:40px auto;
+  }
+  </style>
     <h1>Admin</h1>
     <a href="#" id="raffle_start">Начать конкурс</a>
+    <a href="#" id="raffle_start_big">Начать конкурс iPhone</a>
 
-<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
-<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+<script src="//cdn.socket.io/socket.io-1.2.0.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.js"></script>
 <script src="/socket.io/socket.io.js"></script>
 <script>
 
   var socket = io();
+  var msg = {type:'short'};
   $('#raffle_start').on('click', function() {
     socket.emit('admin', 'raffle_start');
     return false;
   });
 
-  socket.on('registration', function(msg){
+  socket.on('admin', function(msg){
     $('#messages').append($('<li>').text(msg));
   });
 

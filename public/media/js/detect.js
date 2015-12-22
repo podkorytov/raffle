@@ -7,9 +7,8 @@ function step2() {
     startButton(event);
 }
 function step3() {
-    $('#step2').animate({'left': '-100%'});
-    $('#step3').animate({'left': 0});
-    //startAnimation2();
+    $('#step2').animate({'left' : '-100%'});
+    $('#step3').animate({'left' : 0});
     startTimer();
 }
 function step4() {
@@ -20,6 +19,7 @@ function step4() {
 
 function startTimer() {
     var time = 4;
+    var isSended = false;
     var timerInterval = setInterval(function() {
         if (time > 0) {
             $('#timer').text(time);
@@ -30,11 +30,16 @@ function startTimer() {
         flashBg();
         captureVideoToImg();
         step4();
-        userDataObject.Name = $('#name').text();
-        userDataObject.Code = $('#user_id').text();
+        userDataObject.name = $('#name').text();
+        userDataObject.code = $('#user_id').text();
+        userDataObject.user_img = captureVideoToImg();
+        userDataObject.in_corp = true;
         $('#newGuyData').val(JSON.stringify(userDataObject));
-        sendSocket();
-    }, 5000);
+        if (!isSended) {
+            sendSocket();
+            isSended = true;
+        }
+    },5000)
 }
 
 function captureVideoToImg() {
@@ -46,7 +51,7 @@ function captureVideoToImg() {
     ctx.fillRect(0, 0, canvasVideo.width, canvasVideo.height);
     ctx.drawImage(videoForCapturing, 0, 0, canvasVideo.width, canvasVideo.height);
     var dataURI = canvasVideo.toDataURL('image/jpeg');
-    userDataObject.Photo = dataURI;
+    return dataURI;
 }
 
 // Animations

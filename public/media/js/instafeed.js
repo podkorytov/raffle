@@ -58,12 +58,14 @@ function initFeedUpdate(delay) {
 
 var selectIntervalId;
 var winner;
+var prize;
 
 /**
  * Запускает анимацию розыгрыша.
  * @param {number} num - Номер победителя.
  */
-function startRaffle(num) {
+
+function startRaffle(num, prz) {
     clearInterval(feedUpdateIntervalId);
     audio(true);
     var $users = $('#users');
@@ -74,6 +76,7 @@ function startRaffle(num) {
         $users.animate({'width': '100%'}, 200);
     }, 200);
     winner = num;
+    prize = prz;
     setTimeout(function () {
         selectIntervalId = setInterval(userSelect, 100);
         danceLogo(true);
@@ -104,6 +107,8 @@ function showWinner(image, name, code) {
     $winnerPopup.find('img').attr('src', image);
     $winnerPopup.find('.name').text(name);
     $winnerPopup.find('.code').text(code);
+    $winnerPopup.find('.prize').text(prize);
+    console.log(prize);
     $winnerPopup.modal('show');
     setTimeout(function() {
         audio(false);
@@ -149,6 +154,6 @@ $(function() {
         $('<div class="user" style="background-image:url('+ imgSrc +');"><div class="user-data" data-name="Имя телки" data-code="asdSDfsdf23s" data-src=' + imgSrc + '></div>').appendTo('#users');
     }
     $('h1 span').click(function() {
-        startRaffle(55);
+        
     });
 });

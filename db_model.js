@@ -8,14 +8,14 @@ var userSchema = new mongoose.Schema({
     code: Number
 });
 
-userSchema.statics.getRandom = function getRandom(callback) {
-    var random = Math.random();
-    this.count({}, function(err, cnt) {
-        if (err) {
-            callback(err);
-        } else {
-            this.find({}).limit(1).skip(Math.round(random * cnt)).exec(callback);
-        }
+userSchema.statics.getRandom = function getRandom (callback) {
+	var random = Math.random();
+	this.count({}, function(err, cnt) {
+		if (err) {
+			callback(err);
+		} else {
+	        this.find({}).limit(1).skip(Math.round(random * (cnt - 1))).exec(callback);
+		}
     });
 };
 

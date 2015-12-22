@@ -168,5 +168,8 @@ h1 span.goanim i {
 	margin:15px 0 0;
 }
 #winner .code {
+	margin-right:10px;
+}
+#winner .prize {
 	font-size:36px;
 }
