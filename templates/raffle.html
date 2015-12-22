@@ -1,23 +1,63 @@
 <!doctype html>
 <html>
-  <head>
-    <title>Raffle</title>
-  </head>
-  <body>
-    <h1>Raffle</h1>
-    <ul id="messages"></ul>
+<head>
+  <meta charset="UTF-8">
+  <title>main screen</title>
+  <link rel="stylesheet" href="../public/media/css/font-awesome.min.css">
+  <link rel="stylesheet" href="../public/media/css/owl.carousel.css">
+  <link rel="stylesheet" href="../public/media/css/owl.transitions.css">
+  <link rel="stylesheet" href="../public/media/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../public/media/css/main2.css">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+</head>
+<body class="screen">
+  <h1><span><i>#vse</i><i>mayki</i><i>2016</i></span></h1>
+  <div id="users"></div>
+  <div id="instafeed"></div>
+  <audio>
+    <source src="../public/music/Nyan_Cat_original.mp3"></source>
+  </audio>
+  <div class="modal fade" id="winner" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body text-center">
+          <img class="img-responsive" src="">
+          <p>#<span class="code"></span><span class="name"></span></p>
+          <p><span class="prize"></span></p>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+   <div class="modal fade" id="new_user" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body text-center">
+          <img class="img-responsive" src="">
+          <p>#<span class="code"></span><span class="name"></span></p>
+          <p><span class="prize"></span></p>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script src="../public/media/js/owl.carousel.min.js"></script>
+<script src="../public/media/js/bootstrap.min.js"></script>
+<script src="../public/media/js/instafeed.js"></script>
 <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
-<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
 <script src="/socket.io/socket.io.js"></script>
 <script>
 
   var socket = io();
 
   socket.on('raffle', function(msg){
-    $('#messages').append($('<li>').text(msg));
-    console.log(msg);
+    if (msg.prize) {
+      $('#messages').append($('<li>').text(msg));
+      startRaffle(55, msg.prize);
+    } else {
+      console.log(msg)
+    }
   });
 
 </script>
-  </body>
+</body>
 </html>

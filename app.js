@@ -1,7 +1,10 @@
-var app = require('express')();
+var express = require('express');
+var path = require('path');
+var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var events = require('./events.js');
+app.use(express.static(path.join(__dirname, '/')));
 
 app.get('/a', function(req, res){
   res.sendfile('templates/admin.html');

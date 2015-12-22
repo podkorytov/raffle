@@ -14,7 +14,7 @@ userSchema.statics.getRandom = function getRandom (callback) {
 		if (err) {
 			callback(err);
 		} else {
-	        this.find({}).limit(1).skip(Math.round(random * cnt)).exec(callback);
+	        this.find({}).limit(1).skip(Math.round(random * (cnt - 1))).exec(callback);
 		}
     });
 };

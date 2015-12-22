@@ -34,7 +34,7 @@ function captureToCanvas() {
         }
         catch (e) {
             console.log(e);
-            setTimeout(captureToCanvas, 500);
+            (captureToCanvas, 500);
         }
     }
 }
@@ -44,9 +44,12 @@ function htmlEntities(str) {
 }
 
 function read(a) {
-    document.getElementById("user_id").innerHTML = htmlEntities(a);
-    step2();
-    //startTimer();
+    var sended = false;
+    if (!sended) {
+        document.getElementById("user_id").innerHTML = htmlEntities(a);
+        step2();
+        sended=true;
+    }
 }
 
 function isCanvasSupported() {
