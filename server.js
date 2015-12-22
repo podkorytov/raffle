@@ -1,4 +1,5 @@
 var express = require('express'),
+    path = require('path'),
     app = express(),
     http = require('http').Server(app),
     io = require('socket.io')(http),
