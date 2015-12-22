@@ -1,36 +1,44 @@
 <!doctype html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>Web QR</title>
-  <link rel="stylesheet" href="../public/media/css/font-awesome.min.css">
-  <link rel="stylesheet" href="../public/media/css/main.css">
-  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
-  <script type="text/javascript" src="../public/media/js/llqrcode.js"></script>
-  <script type="text/javascript" src="../public/media/js/webqr.js"></script>
+	<meta charset="UTF-8">
+	<title>Web QR</title>
+	<link rel="stylesheet" href="../public/media/css/font-awesome.min.css">
+	<link rel="stylesheet" href="../public/media/css/main.css">
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600&subset=latin,cyrillic' rel='stylesheet'
+	      type='text/css'>
+	<script type="text/javascript" src="../public/media/js/llqrcode.js"></script>
+	<script type="text/javascript" src="../public/media/js/webqr.js"></script>
 </head>
 <body>
 <div class="animations">
-  <div class="kot"></div>
+	<div class="kot"></div>
 </div>
 <div id="c"></div>
 <div id="mainbody">
-  <div class="main-greeting">
-    <h1>Привет, друг!</h1>
-    <h2 id="step1">Так классно, что ты пришел! Покажи свой QR-код на билете в камеру =)</h2>
-    <h2 id="step2">Ага, ясно. Твой номер <span id="user_id"></span>. А теперь назови себя в микрофон <i class="animated-zoom fa fa-microphone"></i></h2>
-    <h2 id="step3"><span id="name"></span> &mdash; классное имя)) Осталось улыбнуться в камеру, и я тебя сфотаю <i class="animated-zoom fa fa-camera"></i><b id="timer">5</b></h2>
-    <h2 id="step4">Ну вот и все. Проходи, садись, бухай!</h2>
-  </div>
-  <img style="display:none;" src="" id="userpic">
-  <div>
-    <div id="outdiv"></div>
-  </div>
-  <input type="hidden" id="newGuyData">
+	<div class="main-greeting">
+		<h1>Привет, друг!</h1>
+
+		<h2 id="step1">Так классно, что ты пришел! Покажи свой QR-код на билете в камеру =)</h2>
+
+		<h2 id="step2">Ага, ясно. Твой номер <span id="user_id"></span>. А теперь назови себя в микрофон <i
+				class="animated-zoom fa fa-microphone"></i></h2>
+
+		<h2 id="step3"><span id="name"></span> &mdash; классное имя)) Осталось улыбнуться в камеру, и я тебя сфотаю <i
+				class="animated-zoom fa fa-camera"></i><b id="timer">5</b></h2>
+
+		<h2 id="step4">Ну вот и все. Проходи, садись, бухай!</h2>
+	</div>
+	<img style="display:none;" src="" id="userpic">
+
+	<div>
+		<div id="outdiv"></div>
+	</div>
+	<input type="hidden" id="newGuyData">
 </div>
 <canvas id="qr-canvas" width="1024" height="768"></canvas>
 <script type="text/javascript">
-  load();
+	load();
 </script>
 <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
 <script src="../public/media/js/html2canvas.js"></script>
@@ -38,48 +46,47 @@
 <script src="../public/media/js/detect.js"></script>
 <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
 <script src="/socket.io/socket.io.js"></script>
+<div class="container">
+	<h1 class="page-header">Регистрация</h1>
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<form>
+				<div class="form-group">
+					<label for="nameInputText">Имя</label>
+					<input type="text" class="form-control" id="nameInputText" placeholder="">
+				</div>
+				<div class="form-group">
+					<label for="codeInputNumber">Код</label>
+					<input type="number" class="form-control" id="codeInputNumber" placeholder="">
+				</div>
+				<div class="form-group">
+					<label for="photoInputFile">Загрузите ваше фото:</label>
+					<input type="file" id="photoInputFile">
+
+					<p class="help-block">допустимые форматы: JPG, PNG.</p>
+				</div>
+				<button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+			</form>
+		</div>
+	</div>
+	<!--
+	<ul id="messages"></ul>
+	<a href="#" id="registration">Зарегистрироваться</a>
+	-->
+</div>
 <script>
+	var msg = $('#newGuyData').val();
+	var user = {name: 'Poli', code: '342'};
+	$('h1').on('click', function () {
+		console.log('send poli');
+		socket.emit('registration', user);
+	});
 
-    <div class="container">
-      <h1 class="page-header">Регистрация</h1>
-      <div class="panel panel-default">
-        <div class="panel-body">
-          <form>
-            <div class="form-group">
-              <label for="nameInputText">Имя</label>
-              <input type="text" class="form-control" id="nameInputText" placeholder="">
-            </div>
-            <div class="form-group">
-              <label for="codeInputNumber">Код</label>
-              <input type="number" class="form-control" id="codeInputNumber" placeholder="">
-            </div>
-            <div class="form-group">
-              <label for="photoInputFile">Загрузите ваше фото:</label>
-              <input type="file" id="photoInputFile">
-              <p class="help-block">допустимые форматы: JPG, PNG.</p>
-            </div>
-            <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
-          </form>
-        </div>
-      </div>
-      <!--
-      <ul id="messages"></ul>
-      <a href="#" id="registration">Зарегистрироваться</a>
-      -->
-    </div>
+	function sendSocket() {
+		socket.emit('registration', msg);
+	}
 
-  var msg = $('#newGuyData').val();
-var user = {name: 'Poli', code: '342'};
-  $('h1').on('click', function() {
-    console.log('send poli');
-      socket.emit('registration', user);
-  });
-
-  function sendSocket() {
-    socket.emit('registration', msg);
-  }
-
-      var msg = {name:'Paulo', code: 175};
+	var msg = {name: 'Paulo', code: 175};
 
 </script>
 </body>
