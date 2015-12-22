@@ -64,12 +64,9 @@ var prize;
  * Запускает анимацию розыгрыша.
  * @param {number} num - Номер победителя.
  */
-<<<<<<< HEAD
+
 function startRaffle(num, prz) {
-=======
-function startRaffle(num) {
     clearInterval(feedUpdateIntervalId);
->>>>>>> 92ad15206ac3fbd3663e14db9484e69a05f231d9
     audio(true);
     var $users = $('#users');
     $users.find('.user').animate({'width': '6.5%'}, 200);
