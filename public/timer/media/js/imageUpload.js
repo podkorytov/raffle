@@ -1,6 +1,12 @@
 $(function () {
 
+    var resultUserImgSize = 800;
+
     var jcrop_api;
+    var boundx;
+    var boundy;
+    var originalWidth = 0;
+    var originalHeight = 0;
 
     var $userPhotoInput = $('.user-photo');
     var $userPhotoButton = $('.btn-photo');
@@ -65,7 +71,9 @@ $(function () {
      */
     function ShowEditorModal(image) {
         var imgWidth = 568; // Ширина контейнера модального окна. Магическая константа (
-        var aspectRatio = image.width / image.height;
+        originalWidth = image.width;
+        originalHeight = image.height;
+        var aspectRatio = originalWidth / originalHeight;
         $editImg.attr("src", image.src);
         $editImg.attr("width", imgWidth);
         $editImg.attr("height", imgWidth / aspectRatio);
@@ -87,6 +95,9 @@ $(function () {
             onRelease: jcropRelease,
             aspectRatio: 1
         }, function () {
+            var bounds = this.getBounds();
+            boundx = bounds[0];
+            boundy = bounds[1];
             jcrop_api = this;
         });
     }
@@ -97,19 +108,50 @@ $(function () {
         }
     }
 
+    /**
+     * Called when the Jcrop selection is moving
+     */
     function jcropChange() {
         $modalEditor.data('bs.modal').options.keyboard = false;
         $modalEditor.data('bs.modal').options.backdrop = 'static';
     }
 
-    function jcropSelect() {
+    /**
+     * Called when Jcrop selection is completed.
+     * Обновляет DataURL картинки предназначеной для отправки.
+     * @param {object} c
+     */
+    function jcropSelect(c) {
         $modalEditor.data('bs.modal').options.keyboard = false;
         $modalEditor.data('bs.modal').options.backdrop = 'static';
+        if (parseInt(c.w) > 0) {
+            var diff = originalWidth / $editImg.width();
+            var resultImage = cutUserImage($editImg[0], diff * c.x, diff * c.y, diff * c.w, diff * c.h);
+            $('#userImg').attr('src', resultImage);
+        }
     }
 
     function jcropRelease() {
         $modalEditor.data('bs.modal').options.keyboard = true;
         $modalEditor.data('bs.modal').options.backdrop = true;
+    }
+
+    /**
+     * Вырезает изображение.
+     * @param {image} image
+     * @param {number} sx - The x coordinate where to start clipping.
+     * @param {number} sy - The y coordinate where to start clipping.
+     * @param {number} swidth - The width of the clipped image.
+     * @param {number} sheight - The height of the clipped image.
+     * @returns {string} - DataURL
+     */
+    function cutUserImage(image, sx, sy, swidth, sheight) {
+        var canvas = document.createElement('canvas');
+        canvas.width = resultUserImgSize;
+        canvas.height = resultUserImgSize;
+        var context = canvas.getContext('2d');
+        context.drawImage(image, sx, sy, swidth, sheight, 0, 0, canvas.width, canvas.height);
+        return canvas.toDataURL('image/png');
     }
 
 });
