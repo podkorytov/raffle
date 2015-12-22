@@ -113,7 +113,7 @@ function showWinner(image, name, code) {
     setTimeout(function() {
         audio(false);
         raffleEnd();
-    },13750)
+    },60000)
 }
 
 function audio(start) {
