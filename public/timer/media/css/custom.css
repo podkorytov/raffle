@@ -48,8 +48,51 @@ img.logo { float:left; margin:0 60px; }
 
 .grid__item.one-whole.push--top { font-family:'bebas_neue_regularregular', 'Tahoma', sans-serif; font-size:30px; }
 
-.user-code, .user-photo { margin-top:20px; }
-button.btn[type=submit] { padding:10px 15px; top:-2px; }
+.user-code { margin-top:20px; }
+
+.user-photo {
+    width: 76px;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 17px;
+    opacity: 0;
+}
+button.btn { padding:10px 15px; }
+
+.btn-photo {
+    display: block;
+    margin-bottom: 20px;
+    width: 76px;
+}
+
+.btn-ok {
+    display: block;
+    width: 76px;
+}
+
+.btn-modal {
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    -moz-user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.input-group-addon {
+    background: transparent;
+    padding: 0 0 0 17px;
+    border: none;
+}
 
 .clock-holder { position:relative; }
 .clock-holder .started { position:absolute; width:110px; left:0; top:43%; font-family:'bebas_neue_regularregular', 'Tahoma', sans-serif; font-size:22px; color:#fff; }

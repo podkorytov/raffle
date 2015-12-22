@@ -8,6 +8,8 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>#vsemayki2016</title>
 
+        <link rel="stylesheet" href="media/css/jquery.Jcrop.css">
+        <link rel="stylesheet" href="media/css/bootstrap.min.css">
         <link rel="stylesheet" href="media/css/loader.min.css"/>
         <link rel="stylesheet" href="media/css/main.min.css"/>
         <link rel="stylesheet" href="media/css/custom.css">
@@ -46,6 +48,32 @@
 						<div class="started">Что-то будет через</div>
                         <div class="clock" data-labels="Дней,Часов,Минут,Секунд"></div>
                     </div>
+                    <div class="grid__item one-whole push--top" style="display:none;">
+                        <div class="grid__item one-whole push--top">
+                            <div class="form-flip push--top">
+                                <button class="form-flip__enabler btn btn--full">регистрация</button>
+                                <div class="form-flip__target">
+                                    <form class="form-ajax" data-success-response="success" action="mailListHandler.php" method="post">
+                                        <div class="input-group">
+                                            <input class="text-input user-name" name="email" type="text" placeholder="Имя" data-msg-required="Обязательное поле" data-msg-email="Пожалуйста, введите ваше Имя." required>
+                                            <input class="text-input user-code" name="tel" type="number" placeholder="Код" data-msg-required="Обязательное поле" data-msg-email="Пожалуйста, введите ваш код." required>
+                                            <div class="input-group-addon">
+                                                <input class="file-input user-photo" name="photo" type="file" placeholder="Ваше фото" id="photoInputFile" size="1">
+                                                <button class="btn btn-photo" type="button"><span>Photo</span><i class="form-spinner fa fa-spinner"></i></button>
+                                                <button class="btn btn--font-black btn-ok" type="button" autocomplete="off"><span>ок</span><i class="form-spinner fa fa-spinner"></i></button>
+                                            </div>
+                                        </div>
+
+                                        <input type="hidden" name="subscribe">
+
+                                        <input type="text" name="important-info">
+                                        <!-- Don't remove the above field. It is a decoy to prevent spam -->
+                                    </form>
+                                </div>
+                                <button class="form-flip__close btn btn--full">Спасибо, ловите письмо!</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -56,8 +84,29 @@
 			<a href="http://ok.ru/vsemayki" title="Загляните в Одноклассники" target="_blank"><i class="fa fa-odnoklassniki"></i></a>
         </div>
 
+        <div id="modalEditor" class="modal fade" tabindex="-1" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">&nbsp;</h4>
+                    </div>
+                    <div class="modal-body">
+                        <img id="editImg" class="img-responsive center-block" src="" alt="">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn-modal btn-primary" data-dismiss="modal">Save and Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <img id="userImg" src="" width="800" height="800" alt="" style="display:none;">
+
         <!--[if lte IE 8]><script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script><![endif]-->
         <!--[if gt IE 8]><!--><script src="media/js/jquery.min.js"></script><!--<![endif]-->
+        <script src="media/js/bootstrap.min.js"></script>
+        <script src="media/js/jquery.Jcrop.min.js"></script>
         <script src="media/js/flipclock.min.js"></script>
         <script src="media/js/jquery-ui.min.js"></script>
         <!--[if gt IE 8]><!-->
@@ -68,6 +117,8 @@
         <!--[if lte IE 9]>
         <script src="media/js/jquery.placeholder.min.js"></script>
         <![endif]-->
+        <script src="media/js/imageUpload.js"></script>
+        <script src="/socket.io/socket.io.js"></script>
     <script>
         var colorArray = ['#b000b5', '#bada55', '#101', '#60061e', '#1d1075', '#1a1a1a', '#663399', '#10073d', '#666', '#907a70', '#617', '#2a2025', '#1e2a2d'];
         function changeBg(color) {
