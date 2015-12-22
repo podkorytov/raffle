@@ -54,12 +54,12 @@
                             <div class="form-flip__target">
                                 <form class="form-ajax" data-success-response="success" action="mailListHandler.php" method="post">
                                     <div class="input-group">
-                                        <input class="text-input" name="email" type="text" placeholder="Имя" data-msg-required="Обязательное поле" data-msg-email="Пожалуйста, введите ваше Имя." required>
+                                        <input class="text-input user-name" name="email" type="text" placeholder="Имя" data-msg-required="Обязательное поле" data-msg-email="Пожалуйста, введите ваше Имя." required>
                                         <input class="text-input user-code" name="tel" type="number" placeholder="Код" data-msg-required="Обязательное поле" data-msg-email="Пожалуйста, введите ваш код." required>
                                         <div class="input-group-addon">
                                             <input class="file-input user-photo" name="photo" type="file" placeholder="Ваше фото" id="photoInputFile" size="1">
                                             <button class="btn btn-photo"><span>Photo</span><i class="form-spinner fa fa-spinner"></i></button>
-                                            <button class="btn btn--font-black btn-ok" type="submit" autocomplete="off"><span>ок</span><i class="form-spinner fa fa-spinner"></i></button>
+                                            <button class="btn btn--font-black btn-ok" type="button" autocomplete="off"><span>ок</span><i class="form-spinner fa fa-spinner"></i></button>
                                         </div>
                                     </div>
 
@@ -115,5 +115,6 @@
         <script src="media/js/jquery.placeholder.min.js"></script>
         <![endif]-->
         <script src="media/js/imageUpload.js"></script>
+        <script src="/socket.io/socket.io.js"></script>
 	</body>
 </html>

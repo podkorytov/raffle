@@ -8,10 +8,16 @@ $(function () {
     var originalWidth = 0;
     var originalHeight = 0;
 
+    var $userName = $('.user-name');
+    var $userCode = $('.user-code');
     var $userPhotoInput = $('.user-photo');
     var $userPhotoButton = $('.btn-photo');
     var $modalEditor = $('#modalEditor');
     var $editImg = $('#editImg');
+    var $userResultImage = $('#userImg');
+    var $regButton = $('.btn-ok');
+
+    var socket = io();
 
     $userPhotoButton.click(function (e) {
         e.preventDefault();
@@ -20,8 +26,24 @@ $(function () {
 
     $userPhotoInput.on("change", FileSelectHandler);
 
+    $regButton.on("click", function () {
+        if (validateFields()) {
+            var msg = {
+                name:$userName.val(),
+                code: $userCode.val(),
+                img_content: $userResultImage.attr("src")
+            };
+            socket.emit('registration', msg);
+        }
+    });
+
+    socket.on('registration', function(msg){
+        //$('#messages').append($('<li>').text(msg));
+        console.dir(msg);
+    });
+
     /**
-     * Îáðàáàòûâàåò çàãðóæåííûå ïîëüçîâàòåëåì ôàéëû. Ïðîâåðÿåò ôîðìàò ôàéëîâ.
+     * ÐžÐ±Ñ€Ð°Ð±Ð°Ñ‚Ñ‹Ð²Ð°ÐµÑ‚ Ð·Ð°Ð³Ñ€ÑƒÐ¶ÐµÐ½Ð½Ñ‹Ðµ Ð¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÐµÐ»ÐµÐ¼ Ñ„Ð°Ð¹Ð»Ñ‹. ÐŸÑ€Ð¾Ð²ÐµÑ€ÑÐµÑ‚ Ñ„Ð¾Ñ€Ð¼Ð°Ñ‚ Ñ„Ð°Ð¹Ð»Ð¾Ð².
      * @param {object} e
      */
     function FileSelectHandler(e) {
@@ -31,7 +53,7 @@ $(function () {
         for (var i = 0, f; f = files[i]; i++) {
             var regex = /(\.|\/)(jpe?g|png)$/i;
             if (!(regex.test(f.type) || regex.test(f.name))) {
-                alert('Òèï èçîáðàæåíèÿ çàïðåùåí');
+                alert('Ð¢Ð¸Ð¿ Ð¸Ð·Ð¾Ð±Ñ€Ð°Ð¶ÐµÐ½Ð¸Ñ Ð·Ð°Ð¿Ñ€ÐµÑ‰ÐµÐ½');
             } else {
                 ParseFile(f);
             }
@@ -39,9 +61,9 @@ $(function () {
     }
 
     /**
-     * Èñïîëüçóÿ FileReader ÷èòàåò ñîäåðæèìîå óêàçàííîå â File,
-     * ïåðåâîäèò åãî â base64 è ñîçäàåò íîâûé îáúåêò Image.
-     * @param {File} file - Ôàéë èçîáðàæåíèÿ.
+     * Ð˜ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÑ FileReader Ñ‡Ð¸Ñ‚Ð°ÐµÑ‚ ÑÐ¾Ð´ÐµÑ€Ð¶Ð¸Ð¼Ð¾Ðµ ÑƒÐºÐ°Ð·Ð°Ð½Ð½Ð¾Ðµ Ð² File,
+     * Ð¿ÐµÑ€ÐµÐ²Ð¾Ð´Ð¸Ñ‚ ÐµÐ³Ð¾ Ð² base64 Ð¸ ÑÐ¾Ð·Ð´Ð°ÐµÑ‚ Ð½Ð¾Ð²Ñ‹Ð¹ Ð¾Ð±ÑŠÐµÐºÑ‚ Image.
+     * @param {File} file - Ð¤Ð°Ð¹Ð» Ð¸Ð·Ð¾Ð±Ñ€Ð°Ð¶ÐµÐ½Ð¸Ñ.
      */
     function ParseFile(file) {
         if (file.type.indexOf("image") == 0) {
@@ -66,11 +88,11 @@ $(function () {
     }
 
     /**
-     * Îáíîâëÿåò è ïîêàçûâàåò ìîäàëüíîå îêíî ñ jcrop ðåäàêòîðîì.
-     * @param {image} image - ðåäàêòèðóåìîå èçîáðàæåíèå.
+     * ÐžÐ±Ð½Ð¾Ð²Ð»ÑÐµÑ‚ Ð¸ Ð¿Ð¾ÐºÐ°Ð·Ñ‹Ð²Ð°ÐµÑ‚ Ð¼Ð¾Ð´Ð°Ð»ÑŒÐ½Ð¾Ðµ Ð¾ÐºÐ½Ð¾ Ñ jcrop Ñ€ÐµÐ´Ð°ÐºÑ‚Ð¾Ñ€Ð¾Ð¼.
+     * @param {image} image - Ñ€ÐµÐ´Ð°ÐºÑ‚Ð¸Ñ€ÑƒÐµÐ¼Ð¾Ðµ Ð¸Ð·Ð¾Ð±Ñ€Ð°Ð¶ÐµÐ½Ð¸Ðµ.
      */
     function ShowEditorModal(image) {
-        var imgWidth = 568; // Øèðèíà êîíòåéíåðà ìîäàëüíîãî îêíà. Ìàãè÷åñêàÿ êîíñòàíòà (
+        var imgWidth = 568; // Ð¨Ð¸Ñ€Ð¸Ð½Ð° ÐºÐ¾Ð½Ñ‚ÐµÐ¹Ð½ÐµÑ€Ð° Ð¼Ð¾Ð´Ð°Ð»ÑŒÐ½Ð¾Ð³Ð¾ Ð¾ÐºÐ½Ð°. ÐœÐ°Ð³Ð¸Ñ‡ÐµÑÐºÐ°Ñ ÐºÐ¾Ð½ÑÑ‚Ð°Ð½Ñ‚Ð° (
         originalWidth = image.width;
         originalHeight = image.height;
         var aspectRatio = originalWidth / originalHeight;
@@ -118,7 +140,7 @@ $(function () {
 
     /**
      * Called when Jcrop selection is completed.
-     * Îáíîâëÿåò DataURL êàðòèíêè ïðåäíàçíà÷åíîé äëÿ îòïðàâêè.
+     * ÐžÐ±Ð½Ð¾Ð²Ð»ÑÐµÑ‚ DataURL ÐºÐ°Ñ€Ñ‚Ð¸Ð½ÐºÐ¸ Ð¿Ñ€ÐµÐ´Ð½Ð°Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¾Ð¹ Ð´Ð»Ñ Ð¾Ñ‚Ð¿Ñ€Ð°Ð²ÐºÐ¸.
      * @param {object} c
      */
     function jcropSelect(c) {
@@ -127,10 +149,9 @@ $(function () {
         if (parseInt(c.w) > 0) {
             var diff = originalWidth / $editImg.width();
             var resultImage = cutUserImage($editImg[0], diff * c.x, diff * c.y, diff * c.w, diff * c.h);
-            $('#userImg').attr('src', resultImage);
+            $userResultImage.attr('src', resultImage);
         }
-
-        // ×òîáû íå çàêðûâàòü ìîäàëüíîå îêíî ñðàçó æå ïîñëå mouseup çà åãî îáëàñòüþ.
+        // Ð§Ñ‚Ð¾Ð±Ñ‹ Ð½Ðµ Ð·Ð°ÐºÑ€Ñ‹Ð²Ð°Ñ‚ÑŒ Ð¼Ð¾Ð´Ð°Ð»ÑŒÐ½Ð¾Ðµ Ð¾ÐºÐ½Ð¾ ÑÑ€Ð°Ð·Ñƒ Ð¶Ðµ Ð¿Ð¾ÑÐ»Ðµ mouseup Ð·Ð° ÐµÐ³Ð¾ Ð¾Ð±Ð»Ð°ÑÑ‚ÑŒÑŽ.
         setTimeout(function () {
             $modalEditor.data('bs.modal').options.keyboard = true;
             $modalEditor.data('bs.modal').options.backdrop = true;
@@ -143,7 +164,7 @@ $(function () {
     }
 
     /**
-     * Âûðåçàåò èçîáðàæåíèå.
+     * Ð’Ñ‹Ñ€ÐµÐ·Ð°ÐµÑ‚ Ð¸Ð·Ð¾Ð±Ñ€Ð°Ð¶ÐµÐ½Ð¸Ðµ.
      * @param {image} image
      * @param {number} sx - The x coordinate where to start clipping.
      * @param {number} sy - The y coordinate where to start clipping.
@@ -158,6 +179,17 @@ $(function () {
         var context = canvas.getContext('2d');
         context.drawImage(image, sx, sy, swidth, sheight, 0, 0, canvas.width, canvas.height);
         return canvas.toDataURL('image/png');
+    }
+
+    /**
+     * ÐŸÑ€Ð¾Ð²ÐµÑ€ÑÐµÑ‚ Ð·Ð°Ð¿Ð¾Ð»Ð½ÐµÐ½Ð¸Ðµ Ð¿Ð¾Ð»ÐµÐ¹ Ð´Ð»Ñ Ñ€ÐµÐ³Ð¸ÑÑ‚Ñ€Ð°Ñ†Ð¸Ð¸.
+     * @returns {boolean}
+     */
+    function validateFields() {
+        var imgCorrect = ($userResultImage.attr("src").length > 22);
+        var nameCorrect = ($userName.val().length > 0);
+        var codeCorrect = ($userCode.val().length > 0);
+        return (imgCorrect && nameCorrect && codeCorrect);
     }
 
 });
