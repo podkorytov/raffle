@@ -16,16 +16,19 @@ var adminToRegistration = function(msg) {
 var adminToRaffle = function(msg, callback) {
     var type = msg.type;
 
-    db.User.getRandom(function(err, docs) {
-        var victorine = new db.Victorine({winner: docs[0], type: type, prize: 'Iphone'});
-        victorine.save(function(err) {
-            if (err) {
-                console.log(err);
-            } else {
-                console.log(victorine);
-                callback(victorine);
-            }
-        });
+    var criteria = {};
+    switch (type) {
+        case 'main': criteria.in_corp = true;break;
+        default: break;
+    }
+
+    db.User.getRandom(criteria, function(err, docs) {
+        if (docs.length > 0) {
+            var victorine = new db.Victorine({winner: docs[0], type: type, prize: 'Iphone'});
+            victorine.save(callback);
+        } else {
+            callback('Нет пользователей для проведения этого типа розыгрыша (' + type + ').');
+        }
     });
 };
 

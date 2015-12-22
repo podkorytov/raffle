@@ -41,8 +41,12 @@ io.on('connection', function(socket) {
 
     socket.on('admin', function(msg) {
         events.adminToRegistration(msg);
-        events.adminToRaffle(msg, function(viktorine) {
-            io.emit('raffle', viktorine);
+        events.adminToRaffle(msg, function(error, viktorine) {
+            if (error) {
+                io.emit('admin_error', error);
+            } else {
+                io.emit('raffle', viktorine);
+            }
         });
     });
 
