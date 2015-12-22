@@ -1,31 +1,59 @@
 <!doctype html>
 <html>
   <head>
+    <meta charset="utf-8">
     <title>Registration</title>
+    <link rel="stylesheet" href="../public/media/css/bootstrap.min.css">
   </head>
   <body>
-    <h1>Регистрация</h1>
-    <ul id="messages"></ul>
-    <a href="#" id="registration">Зарегистрироваться</a>
-<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
-<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
-<script src="/socket.io/socket.io.js"></script>
-<script>
 
-  var socket = io();
+    <div class="container">
+      <h1 class="page-header">Регистрация</h1>
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <form>
+            <div class="form-group">
+              <label for="nameInputText">Имя</label>
+              <input type="text" class="form-control" id="nameInputText" placeholder="">
+            </div>
+            <div class="form-group">
+              <label for="codeInputNumber">Код</label>
+              <input type="number" class="form-control" id="codeInputNumber" placeholder="">
+            </div>
+            <div class="form-group">
+              <label for="photoInputFile">Загрузите ваше фото:</label>
+              <input type="file" id="photoInputFile">
+              <p class="help-block">допустимые форматы: JPG, PNG.</p>
+            </div>
+            <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+          </form>
+        </div>
+      </div>
+      <!--
+      <ul id="messages"></ul>
+      <a href="#" id="registration">Зарегистрироваться</a>
+      -->
+    </div>
 
-  var msg = {name:'Paulo', code: 175};
+    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
 
-  $('#registration').on('click', function() {
-    socket.emit('registration', msg);
-    return false;
-  });
+      var socket = io();
 
-  socket.on('registration', function(msg){
-    $('#messages').append($('<li>').text(msg));
-    console.dir(msg);
-  });
+      var msg = {name:'Paulo', code: 175};
 
-</script>
+      $('#registration').on('click', function() {
+        socket.emit('registration', msg);
+        return false;
+      });
+
+      socket.on('registration', function(msg){
+        $('#messages').append($('<li>').text(msg));
+        console.dir(msg);
+      });
+
+    </script>
   </body>
 </html>
