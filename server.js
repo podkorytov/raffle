@@ -9,15 +9,15 @@ var express = require('express'),
 app.use(express.static(path.join(__dirname, '/public')));
 
 app.get('/adm', function(req, res) {
-    res.sendfile('templates/admin.html');
+    res.sendFile(__dirname + '/templates/admin.html');
 });
 
 app.get('/reg', function(req, res) {
-    res.sendfile('templates/registration.html');
+    res.sendFile(__dirname + '/templates/registration.html');
 });
 
 app.get('/', function(req, res) {
-    res.sendfile('templates/raffle.html');
+    res.sendFile(__dirname + '/templates/raffle.html');
 });
 
 http.listen(port, function() {
@@ -38,8 +38,12 @@ io.on('connection', function(socket) {
     });
 
     socket.on('registration', function(msg) {
-        events.registrationToRaffle(msg, function(user) {
-            io.emit('raffle', user);
+        events.registrationToRaffle(msg, function(error, user) {
+            if (error) {
+                io.emit('registration_error', error);
+            } else {
+                io.emit('raffle', user);
+            }
         });
     });
 });

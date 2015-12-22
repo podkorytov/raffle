@@ -1,5 +1,9 @@
-var userDataObject = {};
-var socket = io();
+var userDataObject = {},
+    socket = io();
+
+socket.on('registration_error', function(msg) {
+    console.log(msg);
+});
 
 function step2() {
     $('#step1').animate({'left': '-100%'});
@@ -8,8 +12,8 @@ function step2() {
     startButton(event);
 }
 function step3() {
-    $('#step2').animate({'left' : '-100%'});
-    $('#step3').animate({'left' : 0});
+    $('#step2').animate({'left': '-100%'});
+    $('#step3').animate({'left': 0});
     startTimer();
 }
 function step4() {
@@ -24,19 +28,20 @@ function startTimer() {
         if (time > 0) {
             $('#timer').text(time);
             time--;
+        } else {
+            clearInterval(timerInterval);
         }
     }, 1000);
     setTimeout(function() {
         flashBg();
-        captureVideoToImg();
-        step4();
         userDataObject.name = $('#name').text();
         userDataObject.code = $('#user_id').text();
         userDataObject.img_content = captureVideoToImg();
         userDataObject.in_corp = true;
         $('#newGuyData').val(JSON.stringify(userDataObject));
         sendSocket();
-    },5000)
+        step4();
+    }, 5000)
 }
 
 function sendSocket() {
@@ -52,25 +57,17 @@ function captureVideoToImg() {
     var ctx = canvasVideo.getContext('2d');
     ctx.fillRect(0, 0, canvasVideo.width, canvasVideo.height);
     ctx.drawImage(videoForCapturing, 0, 0, canvasVideo.width, canvasVideo.height);
-    var dataURI = canvasVideo.toDataURL('image/png');
-    return dataURI;
+    return canvasVideo.toDataURL('image/png');
 }
 
 // Animations
 function startAnimation1() {
     $('.animations').find('.kot').animate({'bottom': 0}, 200);
 }
+
 function flashBg() {
     $('body').css('background', '#fff');
     setTimeout(function() {
         $('body').css('background', '#000');
     }, 200);
 }
-
-
-// Onload
-$(function() {
-    setTimeout(function() {
-        //doDetection();
-    }, 1000);
-});
