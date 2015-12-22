@@ -4,6 +4,19 @@ var app = require('express')(),
     events = require('./events.js'),
     port = process.env.PORT || 8099;
 
+app.use(express.static(path.join(__dirname, '/')));
+
+app.get('/adm', function(req, res) {
+    res.sendfile('templates/admin.html');
+});
+
+app.get('/reg', function(req, res) {
+    res.sendfile('templates/registration.html');
+});
+
+app.get('/', function(req, res) {
+    res.sendfile('templates/raffle.html');
+});
 
 http.listen(port, function() {
 
