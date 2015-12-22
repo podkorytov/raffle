@@ -129,6 +129,12 @@ $(function () {
             var resultImage = cutUserImage($editImg[0], diff * c.x, diff * c.y, diff * c.w, diff * c.h);
             $('#userImg').attr('src', resultImage);
         }
+
+        // Чтобы не закрывать модальное окно сразу же после mouseup за его областью.
+        setTimeout(function () {
+            $modalEditor.data('bs.modal').options.keyboard = true;
+            $modalEditor.data('bs.modal').options.backdrop = true;
+        }, 100);
     }
 
     function jcropRelease() {
