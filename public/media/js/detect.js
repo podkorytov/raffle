@@ -1,8 +1,8 @@
-var userDataObject = {}
+var userDataObject = {};
 
 function step2() {
-    $('#step1').animate({'left' : '-100%'});
-    $('#step2').animate({'left' : 0});
+    $('#step1').animate({'left': '-100%'});
+    $('#step2').animate({'left': 0});
     startAnimation1();
     startButton(event);
 }
@@ -12,8 +12,8 @@ function step3() {
     startTimer();
 }
 function step4() {
-    $('#step3').animate({'left' : '-100%'});
-    $('#step4').animate({'left' : 0});
+    $('#step3').animate({'left': '-100%'});
+    $('#step4').animate({'left': 0});
     //startAnimation3();
 }
 
@@ -48,7 +48,7 @@ function captureVideoToImg() {
     canvasVideo.width = 1024;
     canvasVideo.height = 768;
     var ctx = canvasVideo.getContext('2d');
-    ctx.fillRect(0,0,canvasVideo.width,canvasVideo.height);
+    ctx.fillRect(0, 0, canvasVideo.width, canvasVideo.height);
     ctx.drawImage(videoForCapturing, 0, 0, canvasVideo.width, canvasVideo.height);
     var dataURI = canvasVideo.toDataURL('image/jpeg');
     return dataURI;
@@ -56,7 +56,7 @@ function captureVideoToImg() {
 
 // Animations
 function startAnimation1() {
-    $('.animations').find('.kot').animate({'bottom' : 0}, 200);
+    $('.animations').find('.kot').animate({'bottom': 0}, 200);
 }
 function flashBg() {
     $('body').css('background', '#fff');
@@ -67,8 +67,8 @@ function flashBg() {
 
 
 // Onload
-$(function () {
-    setTimeout(function () {
+$(function() {
+    setTimeout(function() {
         //doDetection();
     }, 1000);
 });

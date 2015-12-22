@@ -11,17 +11,17 @@ function sendRegister(qr) {
 
 function sendSocket() {
     var data = $('#newGuyData').val();
-    socket.send(data);
+    socket.emit('registration', data);
 }
 
 $(function() {
 
-    socket = new WebSocket('ws://localhost:8095');
+    socket = io();
 
-    socket.onmessage = function (mess) {
-        console.log(mess);
-        console.log(JSON.parse(mess.data));
-
-        socket.send(JSON.stringify({ my: 'data' }));
-    };
+//    socket.onmessage = function (mess) {
+//        console.log(mess);
+//        console.log(JSON.parse(mess.data));
+//
+//        socket.send(JSON.stringify({ my: 'data' }));
+//    };
 });

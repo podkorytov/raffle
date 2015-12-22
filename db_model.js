@@ -2,10 +2,10 @@ var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/raffle');
 
 var userSchema = new mongoose.Schema({
-	name: String,
-	img_url: String,
-	in_corp: Boolean,
-	code: Number
+    name: String,
+    img_url: String,
+    in_corp: Boolean,
+    code: Number
 });
 
 userSchema.statics.getRandom = function getRandom (callback) {
@@ -20,10 +20,12 @@ userSchema.statics.getRandom = function getRandom (callback) {
 };
 
 var victorineSchema = new mongoose.Schema({
-	winner: userSchema,
-	prize: String,
-	type: Number
+    winner: userSchema,
+    prize: String,
+    type: Number
 });
 
-module.exports.User = mongoose.model('User', userSchema);
-module.exports.Victorine = mongoose.model('Victorine', victorineSchema); 
+module.exports = {
+    User: mongoose.model('User', userSchema),
+    Victorine: mongoose.model('Victorine', victorineSchema)
+};
