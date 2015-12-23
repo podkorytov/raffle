@@ -8,9 +8,10 @@ socket.on('registration_error', function(msg) {
 });
 
 socket.on('in_corp', function(msg) {
+    var a = $('#user_id').val();
     if (msg == a) {
         // step4;
-        console.log('step4', msg);
+        console.log('step4, '+ msg);
     }
 });
 
