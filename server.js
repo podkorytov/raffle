@@ -16,6 +16,10 @@ app.get('/reg', function(req, res) {
     res.sendFile(__dirname + '/templates/registration.html');
 });
 
+app.get('/tmr', function(req, res) {
+    res.sendFile(__dirname + '/templates/timer.html');
+});
+
 app.get('/', function(req, res) {
     res.sendFile(__dirname + '/templates/raffle.html');
 });
