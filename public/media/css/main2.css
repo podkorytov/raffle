@@ -133,9 +133,9 @@ h1 span.goanim i {
 	width:49%;
 }
 #instafeed .onephoto {
-	margin:100px auto 0;
+	margin:10px auto 0;
 	position:relative;
-	width:600px;
+	width:100%;
 }
 #instafeed .onephoto img {
 	width:100%;
