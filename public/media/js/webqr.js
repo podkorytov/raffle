@@ -17,7 +17,6 @@ function initCanvas(w, h) {
     gCtx.clearRect(0, 0, w, h);
 }
 
-
 function captureToCanvas() {
     if (stype != 1)
         return;
@@ -28,7 +27,7 @@ function captureToCanvas() {
                 qrcode.decode();
             }
             catch (e) {
-                console.log(e);
+                //console.log(e);
                 setTimeout(captureToCanvas, 500);
             }
         }
@@ -48,7 +47,7 @@ function read(a) {
     if (!sended) {
         document.getElementById("user_id").innerHTML = htmlEntities(a);
         step2();
-        sended=true;
+        sended = true;
     }
 }
 
@@ -91,13 +90,12 @@ function setwebcam() {
     document.getElementById("outdiv").innerHTML = vidhtml;
     v = document.getElementById("v");
     v.play();
-    if (n.getUserMedia)
+    if (n.getUserMedia) {
         n.getUserMedia({video: true, audio: false}, success, error);
-    else if (n.webkitGetUserMedia) {
+    } else if (n.webkitGetUserMedia) {
         webkit = true;
         n.webkitGetUserMedia({video: true, audio: false}, success, error);
-    }
-    else if (n.mozGetUserMedia) {
+    } else if (n.mozGetUserMedia) {
         moz = true;
         n.mozGetUserMedia({video: true, audio: false}, success, error);
     }

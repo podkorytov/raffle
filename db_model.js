@@ -8,13 +8,13 @@ var userSchema = new mongoose.Schema({
     code: Number
 });
 
-userSchema.statics.getRandom = function getRandom (callback) {
+userSchema.statics.getRandom = function getRandom (criteria, callback) {
 	var random = Math.random();
-	this.count({}, function(err, cnt) {
+	this.count(criteria, function(err, cnt) {
 		if (err) {
 			callback(err);
 		} else {
-	        this.find({}).limit(1).skip(Math.round(random * (cnt - 1))).exec(callback);
+	        this.find(criteria).limit(1).skip(Math.round(random * (cnt - 1))).exec(callback);
 		}
     });
 };

@@ -29,12 +29,12 @@
     </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->
    <div class="modal fade" id="new_user" tabindex="-1" role="dialog">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-body text-center">
-          <img class="img-responsive" src="">
-          <p>#<span class="code"></span><span class="name"></span></p>
-          <p><span class="prize"></span></p>
+          <img class="img-responsive" src=''>
+          <p class="prev">У нас гость:</p>
+          <p><span class="name"></span></p>
         </div>
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
@@ -54,8 +54,20 @@
       $('#messages').append($('<li>').text(msg));
       startRaffle(55, msg.prize);
     } else {
+      var $newUserModal = $('#new_user');
+      $newUserModal.find('img').attr('src', msg.img_url);
+      $newUserModal.find('.name').text(msg.name);
+      $newUserModal.modal('show');
+      $('<div class="user" style="background-image:url('+ msg.img_url +');"><div class="user-data" data-name="'+ msg.name +'" data-code="'+ msg.code +'" data-src=' + msg.img_url + '></div>').appendTo('#users');
+      setTimeout(function() {
+        $newUserModal.modal('hide');
+      },5000);
       console.log(msg)
     }
+  });
+
+  socket.on('guests', function(msg) {
+      console.log(msg);
   });
 
 </script>
