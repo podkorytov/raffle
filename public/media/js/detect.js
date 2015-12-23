@@ -9,7 +9,10 @@ function step2() {
     $('#step1').animate({'left': '-100%'});
     $('#step2').animate({'left': 0});
     startAnimation1();
-    startButton(event);
+    setTimeout(function() {
+        startButton(event);
+        console.log('voice recognition started')
+    },1000)
 }
 function step3() {
     $('#step2').animate({'left': '-100%'});

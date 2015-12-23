@@ -27,13 +27,13 @@ function captureToCanvas() {
                 qrcode.decode();
             }
             catch (e) {
-                //console.log(e);
+                console.log(e);
                 setTimeout(captureToCanvas, 500);
             }
         }
         catch (e) {
             console.log(e);
-            (captureToCanvas, 500);
+            setTimeout(captureToCanvas, 500);
         }
     }
 }
@@ -42,8 +42,8 @@ function htmlEntities(str) {
     return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
+var sended = false;
 function read(a) {
-    var sended = false;
     if (!sended) {
         document.getElementById("user_id").innerHTML = htmlEntities(a);
         step2();

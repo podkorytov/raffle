@@ -188,7 +188,7 @@ function startButton(event) {
     //start_img.src = '/intl/en/chrome/assets/common/images/content/mic-slash.gif';
     //showInfo('info_allow');
     //showButtons('none');
-    start_timestamp = event.timeStamp;
+    //start_timestamp = event.timeStamp;
 }
 
 /*function showInfo(s) {
