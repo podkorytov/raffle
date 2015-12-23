@@ -4,6 +4,15 @@ var userDataObject = {},
 
 socket.on('registration_error', function(msg) {
     rightCode = false;
+    console.log(msg);
+});
+
+socket.on('in_corp', function(msg) {
+    var a = $('#user_id').val();
+    if (msg == a) {
+        // step4;
+        console.log('step4, '+ msg);
+    }
 });
 
 function step2() {
@@ -13,7 +22,7 @@ function step2() {
     setTimeout(function() {
         startButton(event);
         console.log('voice recognition started')
-    },1000)
+    }, 1000)
 }
 function step3() {
     $('#step2').animate({'left': '-100%'});

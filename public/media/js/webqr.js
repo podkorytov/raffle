@@ -6,6 +6,7 @@ var webkit = false;
 var moz = false;
 var v = null;
 var vidhtml = '<video id="v"></video>';
+var socket = io();
 
 function initCanvas(w, h) {
     gCanvas = document.getElementById("qr-canvas");
@@ -46,6 +47,7 @@ var sended = false;
 function read(a) {
     if (!sended) {
         document.getElementById("user_id").innerHTML = htmlEntities(a);
+        socket.emit('check_qr_code', a);
         step2();
         sended = true;
     }
