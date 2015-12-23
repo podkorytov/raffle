@@ -57,7 +57,7 @@ var registrationToRaffle = function(data, callback) {
                 callback({code: code, message: err});
             } else {
                 if (user) {
-                    callback(user.name + ', бро ты уже зареган!');
+                    callback({code:code, message:'Извините, данный код уже был использован.'});
                 } else {
                     filesystem.saveFromBase64(img_content, img_name, function(img_url) {
                         msg.img_url = img_url;
@@ -68,7 +68,7 @@ var registrationToRaffle = function(data, callback) {
             }
         });
     } else {
-        callback({code:code, message:'Сорян, но чото такого кода нет :( ' + code + ' --'});
+        callback({code:code, message:'Данный код недействительный. Укажите верный код.'});
     }
 };
 
