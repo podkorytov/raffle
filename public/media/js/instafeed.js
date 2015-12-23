@@ -60,6 +60,7 @@ var selectIntervalId;
 var winner;
 var prize;
 var $winnerPopup = $('#winner');
+var usersLength;
 
 /**
  * Запускает анимацию розыгрыша.
@@ -67,6 +68,8 @@ var $winnerPopup = $('#winner');
  */
 
 function startRaffle(num, prz) {
+    usersLength = $('#users > div').length;
+    console.log(usersLength);
     clearInterval(feedUpdateIntervalId);
     audio(true);
     var $users = $('#users');
@@ -86,7 +89,7 @@ function startRaffle(num, prz) {
 var t=0;
 function userSelect() {
     if (t<(selectTimer * 10)) {
-        var rand = Math.floor(Math.random() * 90);
+        var rand = Math.floor(Math.random() * usersLength);
         var $elem = $('.user').eq(rand);
         $($elem).addClass('hover');
         setTimeout(function() {
