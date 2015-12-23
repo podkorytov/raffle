@@ -50,7 +50,6 @@
 <script>
 
   var socket = io();
-  var huy = false;
 
   socket.on('raffle', function(msg){
     if (msg.prize) {
@@ -62,7 +61,13 @@
       $newUserModal.find('img').attr('src', msg.img_url);
       $newUserModal.find('.name').text(msg.name);
       $newUserModal.modal('show');
-      $('<div class="user" style="background-image:url('+ msg.img_url +');"><div class="user-data" data-name="'+ msg.name +'" data-code="'+ msg.code +'" data-src=' + msg.img_url + '></div>').appendTo('#users');
+      $('#users .user-data').each(function() {
+        if ($(this).attr('data-code') == msg.code) {
+          $(this).addClass('here');
+        } else {
+          $('<div class="user" style="background-image:url('+ msg.img_url +');"><div class="user-data" data-name="'+ msg.name +'" data-code="'+ msg.code +'" data-src=' + msg.img_url + '></div>').appendTo('#users');
+        }
+      });
       setTimeout(function() {
         $newUserModal.modal('hide');
         $newUserModal.find('img').attr('src', '');
