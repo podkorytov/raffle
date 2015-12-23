@@ -100,6 +100,7 @@ $(function () {
             reader.onload = function (e) {
                 var image = new Image();
                 image.onload = function () {
+                    $userPhotoInput.replaceWith( $userPhotoInput = $userPhotoInput.clone( true ) );
                     $helpImgTxt.hide();
                     image.name = file.name;
                     ShowEditorModal(image);
