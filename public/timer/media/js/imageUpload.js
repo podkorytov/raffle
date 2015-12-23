@@ -17,7 +17,7 @@ $(function () {
     var $userResultImage = $('#userImg');
     var $regButton = $('.btn-ok');
 
-    //var socket = io();
+    var socket = io();
 
     $userPhotoButton.click(function (e) {
         e.preventDefault();
@@ -34,13 +34,14 @@ $(function () {
                 img_content: $userResultImage.attr("src")
             };
             socket.emit('registration', msg);
+            console.warn(msg);
         }
     });
 
-    //socket.on('registration', function(msg){
-    //    //$('#messages').append($('<li>').text(msg));
-    //    console.dir(msg);
-    //});
+    socket.on('registration', function(msg){
+        //$('#messages').append($('<li>').text(msg));
+        console.dir(msg);
+    });
 
     /**
      * Обрабатывает загруженные пользователем файлы. Проверяет формат файлов.
