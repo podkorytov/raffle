@@ -1,8 +1,9 @@
 var userDataObject = {},
-    socket = io();
+    socket = io(),
+    rightCode = true;
 
 socket.on('registration_error', function(msg) {
-    console.log(msg);
+    rightCode = false;
 });
 
 function step2() {
@@ -20,6 +21,9 @@ function step3() {
     startTimer();
 }
 function step4() {
+    if (!rightCode) {
+        $('#step4').text('Что то не то с кодом, ты жулик!');
+    }
     $('#step3').animate({'left': '-100%'});
     $('#step4').animate({'left': 0});
     //startAnimation3();
