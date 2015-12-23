@@ -18,8 +18,11 @@ var adminToRaffle = function(msg, callback) {
 
     var criteria = {};
     switch (type) {
-        case 'main': criteria.in_corp = true;break;
-        default: break;
+        case 'main':
+            criteria.in_corp = true;
+            break;
+        default:
+            break;
     }
 
     db.User.getRandom(criteria, function(err, docs) {
@@ -43,15 +46,26 @@ var checkCode = function(code) {
 
 var registrationToRaffle = function(data, callback) {
     var msg = JSON.parse(data),
-        pos = checkCode(msg.code);
+        code = msg.code,
+        pos = checkCode(code);
     if (pos > 0) {
         var img_name = pos + '.png';
         var img_content = msg.img_content;
 
-        filesystem.saveFromBase64(img_content, img_name, function(img_url) {
-            msg.img_url = img_url;
-            var user = new db.User(msg);
-            user.save(callback);
+        db.User.findOne({code: code}, function(err, user) {
+            if (err) {
+                callback(err);
+            } else {
+                if (user) {
+                    callback(user.name + ', бро ты уже зареган!');
+                } else {
+                    filesystem.saveFromBase64(img_content, img_name, function(img_url) {
+                        msg.img_url = img_url;
+                        user = new db.User(msg);
+                        user.save(callback);
+                    });
+                }
+            }
         });
     } else {
         callback('Сорян, но чото такого кода нет :(');
