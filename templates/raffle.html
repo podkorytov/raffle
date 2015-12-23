@@ -12,7 +12,9 @@
 </head>
 <body class="screen">
   <h1><span><i>#vse</i><i>mayki</i><i>2016</i></span></h1>
-  <div id="users"></div>
+  <div id="users">
+    <h2>Пока никого нет</h2>
+  </div>
   <div id="instafeed"></div>
   <audio>
     <source src="/music/Nyan_Cat_original.mp3"></source>
@@ -29,12 +31,12 @@
     </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->
    <div class="modal fade" id="new_user" tabindex="-1" role="dialog">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-body text-center">
-          <img class="img-responsive" src="">
-          <p>#<span class="code"></span><span class="name"></span></p>
-          <p><span class="prize"></span></p>
+          <img class="img-responsive" src=''>
+          <p class="prev">У нас гость:</p>
+          <p><span class="name"></span></p>
         </div>
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
@@ -54,8 +56,36 @@
       $('#messages').append($('<li>').text(msg));
       startRaffle(55, msg.prize);
     } else {
-      console.log(msg)
+      $('#users h2').remove();
+      var $newUserModal = $('#new_user');
+      $newUserModal.find('img').attr('src', msg.img_url);
+      $newUserModal.find('.name').text(msg.name);
+      $newUserModal.modal('show');
+      $('#users .user-data').each(function() {
+        if ($(this).attr('data-code') == msg.code) {
+          $(this).addClass('here');
+        } else {
+          $('<div class="user" style="background-image:url('+ msg.img_url +');"><div class="user-data" data-name="'+ msg.name +'" data-code="'+ msg.code +'" data-src=' + msg.img_url + '></div>').appendTo('#users');
+        }
+      });
+      setTimeout(function() {
+        $newUserModal.modal('hide');
+        $newUserModal.find('img').attr('src', '');
+        $newUserModal.find('.name').text('');
+      },5000);
     }
+  });
+
+  socket.on('guests', function(msg) {
+      if (msg.length) {
+        $('#users').find('div').remove();
+        $('#users h2').remove();
+        $.each(msg, function() {
+          $('<div class="user" style="background-image:url('+ this.img_url +');"><div class="user-data" data-name="'+ this.name +'" data-code="'+ this.code +'" data-src="' + this.img_url + '""></div>').appendTo('#users');
+        });
+      } else {
+        console.log(msg);
+      }
   });
 
 </script>

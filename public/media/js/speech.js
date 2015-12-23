@@ -120,6 +120,7 @@ if (!('webkitSpeechRecognition' in window)) {
             //showInfo('info_start');
             return;
         }
+        step3();
         //showInfo('');
 /*        if (window.getSelection) {
             window.getSelection().removeAllRanges();
@@ -151,11 +152,7 @@ if (!('webkitSpeechRecognition' in window)) {
         final_transcript = capitalize(final_transcript);
         document.getElementById("name").innerHTML = linebreak(final_transcript);
         //interim_span.innerHTML = linebreak(interim_transcript);
-        if (final_transcript || interim_transcript) {
-            //document.getElementById("info_speech").innerHTML = 'Осталось совсем немного - покажите QR код камере';
-            recognition.stop();
-            step3();
-        }
+        recognition.stop();
     };
 }
 
@@ -191,7 +188,7 @@ function startButton(event) {
     //start_img.src = '/intl/en/chrome/assets/common/images/content/mic-slash.gif';
     //showInfo('info_allow');
     //showButtons('none');
-    start_timestamp = event.timeStamp;
+    //start_timestamp = event.timeStamp;
 }
 
 /*function showInfo(s) {

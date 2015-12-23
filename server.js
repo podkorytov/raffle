@@ -9,15 +9,23 @@ var express = require('express'),
 app.use(express.static(path.join(__dirname, '/public')));
 
 app.get('/adm', function(req, res) {
-    res.sendfile('templates/admin.html');
+    res.sendFile(__dirname + '/templates/admin.html');
 });
 
 app.get('/reg', function(req, res) {
-    res.sendfile('templates/registration.html');
+    res.sendFile(__dirname + '/templates/registration.html');
+});
+
+app.get('/tmr', function(req, res) {
+    res.sendFile(__dirname + '/templates/timer.html');
+});
+
+app.get('/ireg', function(req, res) {
+    res.sendFile(__dirname + '/templates/reg_form.html');
 });
 
 app.get('/', function(req, res) {
-    res.sendfile('templates/raffle.html');
+    res.sendFile(__dirname + '/templates/raffle.html');
 });
 
 http.listen(port, function() {
@@ -25,6 +33,15 @@ http.listen(port, function() {
 });
 
 io.on('connection', function(socket) {
+
+    events.guestsListsToRaffle(function(error, users) {
+        if (error) {
+            console.log(error);
+        } else {
+            io.emit('guests', users);
+        }
+    });
+
     socket.on('raffle', function(msg) {
         events.raffleToAdmin(msg);
         events.raffleToRegister(msg);
@@ -32,14 +49,33 @@ io.on('connection', function(socket) {
 
     socket.on('admin', function(msg) {
         events.adminToRegistration(msg);
-        events.adminToRaffle(msg, function(viktorine) {
-            io.emit('raffle', viktorine);
+        events.adminToRaffle(msg, function(error, viktorine) {
+            if (error) {
+                io.emit('admin_error', error);
+            } else {
+                io.emit('raffle', viktorine);
+            }
         });
     });
 
     socket.on('registration', function(msg) {
-        events.registrationToRaffle(msg, function(user) {
-            io.emit('raffle', user);
+        events.registrationToRaffle(msg, function(error, user) {
+            if (error) {
+                io.emit('registration_error', error);
+            } else {
+                io.emit('raffle', user);
+            }
+        });
+    });
+
+    socket.on('check_qr_code', function(msg) {
+        events.checkQRCode(msg, function(error, user) {
+            if (user) {
+                io.emit('raffle', user);
+                io.emit('in_corp', msg);
+            } else {
+                console.log(error);
+            }
         });
     });
 });

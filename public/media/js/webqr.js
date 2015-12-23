@@ -6,6 +6,7 @@ var webkit = false;
 var moz = false;
 var v = null;
 var vidhtml = '<video id="v"></video>';
+var socket = io();
 
 function initCanvas(w, h) {
     gCanvas = document.getElementById("qr-canvas");
@@ -16,7 +17,6 @@ function initCanvas(w, h) {
     gCtx = gCanvas.getContext("2d");
     gCtx.clearRect(0, 0, w, h);
 }
-
 
 function captureToCanvas() {
     if (stype != 1)
@@ -34,7 +34,7 @@ function captureToCanvas() {
         }
         catch (e) {
             console.log(e);
-            (captureToCanvas, 500);
+            setTimeout(captureToCanvas, 500);
         }
     }
 }
@@ -43,12 +43,13 @@ function htmlEntities(str) {
     return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
+var sended = false;
 function read(a) {
-    var sended = false;
     if (!sended) {
         document.getElementById("user_id").innerHTML = htmlEntities(a);
+        socket.emit('check_qr_code', a);
         step2();
-        sended=true;
+        sended = true;
     }
 }
 
@@ -91,13 +92,12 @@ function setwebcam() {
     document.getElementById("outdiv").innerHTML = vidhtml;
     v = document.getElementById("v");
     v.play();
-    if (n.getUserMedia)
+    if (n.getUserMedia) {
         n.getUserMedia({video: true, audio: false}, success, error);
-    else if (n.webkitGetUserMedia) {
+    } else if (n.webkitGetUserMedia) {
         webkit = true;
         n.webkitGetUserMedia({video: true, audio: false}, success, error);
-    }
-    else if (n.mozGetUserMedia) {
+    } else if (n.mozGetUserMedia) {
         moz = true;
         n.mozGetUserMedia({video: true, audio: false}, success, error);
     }

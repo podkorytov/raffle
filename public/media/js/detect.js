@@ -1,17 +1,38 @@
-var userDataObject = {};
+var userDataObject = {},
+    socket = io(),
+    rightCode = true;
+
+socket.on('registration_error', function(msg) {
+    rightCode = false;
+    console.log(msg);
+});
+
+socket.on('in_corp', function(msg) {
+    var a = $('#user_id').val();
+    if (msg == a) {
+        // step4;
+        console.log('step4, '+ msg);
+    }
+});
 
 function step2() {
     $('#step1').animate({'left': '-100%'});
     $('#step2').animate({'left': 0});
     startAnimation1();
-    startButton(event);
+    setTimeout(function() {
+        startButton(event);
+        console.log('voice recognition started')
+    }, 1000)
 }
 function step3() {
-    $('#step2').animate({'left' : '-100%'});
-    $('#step3').animate({'left' : 0});
+    $('#step2').animate({'left': '-100%'});
+    $('#step3').animate({'left': 0});
     startTimer();
 }
 function step4() {
+    if (!rightCode) {
+        $('#step4').text('Что то не то с кодом, ты жулик!');
+    }
     $('#step3').animate({'left': '-100%'});
     $('#step4').animate({'left': 0});
     //startAnimation3();
@@ -19,27 +40,29 @@ function step4() {
 
 function startTimer() {
     var time = 4;
-    var isSended = false;
     var timerInterval = setInterval(function() {
         if (time > 0) {
             $('#timer').text(time);
             time--;
+        } else {
+            clearInterval(timerInterval);
         }
     }, 1000);
     setTimeout(function() {
         flashBg();
-        captureVideoToImg();
-        step4();
         userDataObject.name = $('#name').text();
         userDataObject.code = $('#user_id').text();
-        userDataObject.user_img = captureVideoToImg();
+        userDataObject.img_content = captureVideoToImg();
         userDataObject.in_corp = true;
         $('#newGuyData').val(JSON.stringify(userDataObject));
-        if (!isSended) {
-            sendSocket();
-            isSended = true;
-        }
-    },5000)
+        sendSocket();
+        step4();
+    }, 5000)
+}
+
+function sendSocket() {
+    var data = $('#newGuyData').val();
+    socket.emit('registration', data);
 }
 
 function captureVideoToImg() {
@@ -50,25 +73,17 @@ function captureVideoToImg() {
     var ctx = canvasVideo.getContext('2d');
     ctx.fillRect(0, 0, canvasVideo.width, canvasVideo.height);
     ctx.drawImage(videoForCapturing, 0, 0, canvasVideo.width, canvasVideo.height);
-    var dataURI = canvasVideo.toDataURL('image/jpeg');
-    return dataURI;
+    return canvasVideo.toDataURL('image/png');
 }
 
 // Animations
 function startAnimation1() {
     $('.animations').find('.kot').animate({'bottom': 0}, 200);
 }
+
 function flashBg() {
     $('body').css('background', '#fff');
     setTimeout(function() {
         $('body').css('background', '#000');
     }, 200);
 }
-
-
-// Onload
-$(function() {
-    setTimeout(function() {
-        //doDetection();
-    }, 1000);
-});

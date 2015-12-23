@@ -7,7 +7,7 @@ module.exports.saveFromBase64 = function(content, img_name, callback) {
         if (err) {
             console.log(err);
         } else {
-            callback(img_url);
+            callback('avatars/' + img_name);
         }
     });
 }
