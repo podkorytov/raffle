@@ -8,10 +8,12 @@ socket.on('registration_error', function(msg) {
 });
 
 socket.on('in_corp', function(msg) {
-    var a = $('#user_id').val();
+    console.log(msg);
+    var a = $('#user_id').text();
     if (msg == a) {
-        // step4;
-        console.log('step4, '+ msg);
+        step4ext();
+    } else {
+        step2();
     }
 });
 
@@ -30,12 +32,20 @@ function step3() {
     startTimer();
 }
 function step4() {
-    if (!rightCode) {
-        $('#step4').text('Что то не то с кодом, ты жулик!');
-    }
     $('#step3').animate({'left': '-100%'});
     $('#step4').animate({'left': 0});
     //startAnimation3();
+    setTimeout(function() {
+        location.reload();
+    },5000);
+}
+function step4ext() {
+    $('#step1').animate({'left': '-100%'});
+    $('#step4').animate({'left': 0});
+    //startAnimation3();
+        setTimeout(function() {
+        location.reload();
+    },5000);
 }
 
 function startTimer() {

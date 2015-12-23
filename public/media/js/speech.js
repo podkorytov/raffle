@@ -91,12 +91,12 @@ if (!('webkitSpeechRecognition' in window)) {
 
     recognition.onerror = function (event) {
         if (event.error == 'no-speech') {
-            start_img.src = '/intl/en/chrome/assets/common/images/content/mic.gif';
+            //start_img.src = '/intl/en/chrome/assets/common/images/content/mic.gif';
             //showInfo('info_no_speech');
             ignore_onend = true;
         }
         if (event.error == 'audio-capture') {
-            start_img.src = '/intl/en/chrome/assets/common/images/content/mic.gif';
+            //start_img.src = '/intl/en/chrome/assets/common/images/content/mic.gif';
             //showInfo('info_no_microphone');
             ignore_onend = true;
         }

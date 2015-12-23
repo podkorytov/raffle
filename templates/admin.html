@@ -36,12 +36,17 @@
   var socket = io();
   var msg = {type:'short'};
   $('#raffle_start').on('click', function() {
-    socket.emit('admin', 'raffle_start');
+    socket.emit('admin', JSON.stringify({type:'not_iphone'}));
+    return false;
+  });
+  $('#raffle_start_big').on('click', function() {
+    socket.emit('admin', JSON.stringify({type:'iphone'}));
     return false;
   });
 
   socket.on('admin', function(msg){
     $('#messages').append($('<li>').text(msg));
+    console.log(msg);
   });
 
 </script>
