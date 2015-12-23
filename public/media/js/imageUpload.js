@@ -141,11 +141,11 @@ $(function () {
             onRelease: jcropRelease,
             aspectRatio: 1
         }, function () {
+            jcrop_api = this;
+            jcrop_api.animateTo([50,50,400,400]);
             var bounds = this.getBounds();
             boundx = bounds[0];
             boundy = bounds[1];
-            jcrop_api = this;
-            jcrop_api.animateTo([50,50,400,400]);
         });
     }
 
