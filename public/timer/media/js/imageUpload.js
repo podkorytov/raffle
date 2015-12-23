@@ -38,9 +38,12 @@ $(function () {
         }
     });
 
-    socket.on('registration', function(msg){
-        //$('#messages').append($('<li>').text(msg));
-        console.dir(msg);
+    socket.on('registration_error', function(msg) {
+        console.log(msg);
+    });
+
+    socket.on('raffle', function(msg){
+        console.log(msg);
     });
 
     /**
