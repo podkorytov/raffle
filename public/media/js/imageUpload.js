@@ -45,8 +45,7 @@ $(function () {
             code: $userCode.val(),
             img_content: $userResultImage.attr("src")
         };
-        socket.emit('registration', msg);
-        console.warn(msg);
+        socket.emit('registration', JSON.stringify(msg));
     });
 
     socket.on('registration_error', function(msg) {
