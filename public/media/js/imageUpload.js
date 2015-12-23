@@ -52,6 +52,7 @@ $(function () {
     });
 
     socket.on('registration_error', function(msg) {
+        console.log(msg);
         if (typeof msg !== "undefined" && msg.code == $userCode.val() ) {
             $errLabel.html(msg);
         }
