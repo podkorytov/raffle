@@ -20,6 +20,10 @@ app.get('/tmr', function(req, res) {
     res.sendFile(__dirname + '/templates/timer.html');
 });
 
+app.get('/ireg', function(req, res) {
+    res.sendFile(__dirname + '/templates/reg_form.html');
+});
+
 app.get('/', function(req, res) {
     res.sendFile(__dirname + '/templates/raffle.html');
 });
