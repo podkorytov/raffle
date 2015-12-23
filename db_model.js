@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/raffle');
+mongoose.connect('mongodb://localhost/raffle2');
 
 var userSchema = new mongoose.Schema({
     name: String,
@@ -21,8 +21,7 @@ userSchema.statics.getRandom = function getRandom (criteria, callback) {
 
 var victorineSchema = new mongoose.Schema({
     winner: userSchema,
-    prize: String,
-    type: Number
+    type: String
 });
 
 module.exports = {

@@ -14,11 +14,11 @@ var adminToRegistration = function(msg) {
 };
 
 var adminToRaffle = function(msg, callback) {
-    var type = msg.type;
+    var type = JSON.parse(msg).type;
 
     var criteria = {};
     switch (type) {
-        case 'main':
+        case 'iphone':
             criteria.in_corp = true;
             break;
         default:
@@ -27,7 +27,7 @@ var adminToRaffle = function(msg, callback) {
 
     db.User.getRandom(criteria, function(err, docs) {
         if (docs.length > 0) {
-            var victorine = new db.Victorine({winner: docs[0], type: type, prize: 'Iphone'});
+            var victorine = new db.Victorine({winner: docs[0], type: type});
             victorine.save(callback);
         } else {
             callback('Нет пользователей для проведения этого типа розыгрыша (' + type + ').');
@@ -68,7 +68,7 @@ var registrationToRaffle = function(data, callback) {
             }
         });
     } else {
-        callback('Сорян, но чото такого кода нет :(');
+        callback('Сорян, но чото такого кода нет :( ' + code + ' --');
     }
 };
 

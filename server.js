@@ -70,7 +70,7 @@ io.on('connection', function(socket) {
                 io.emit('raffle', user);
                 io.emit('in_corp', msg);
             } else {
-                console.log(error);
+                io.emit('in_corp', false);
             }
         });
     });

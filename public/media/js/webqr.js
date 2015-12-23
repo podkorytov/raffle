@@ -48,7 +48,6 @@ function read(a) {
     if (!sended) {
         document.getElementById("user_id").innerHTML = htmlEntities(a);
         socket.emit('check_qr_code', a);
-        step2();
         sended = true;
     }
 }
