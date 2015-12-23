@@ -73,7 +73,7 @@
   socket.on('guests', function(msg) {
       if (msg.length) {
         $.each(msg, function() {
-          $('<div class="user" style="background-image:url('+ msg.img_url +');"><div class="user-data" data-name="'+ msg.name +'" data-code="'+ msg.code +'" data-src=' + msg.img_url + '></div>').appendTo('#users');
+          $('<div class="user" style="background-image:url('+ this.img_url +');"><div class="user-data" data-name="'+ this.name +'" data-code="'+ this.code +'" data-src="' + this.img_url + '""></div>').appendTo('#users');
         });
       } else {
         console.log(msg);
