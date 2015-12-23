@@ -59,6 +59,7 @@ function initFeedUpdate(delay) {
 var selectIntervalId;
 var winner;
 var prize;
+var $winnerPopup = $('#winner');
 
 /**
  * Запускает анимацию розыгрыша.
@@ -103,7 +104,6 @@ function userSelect() {
 }
 
 function showWinner(image, name, code) {
-    var $winnerPopup = $('#winner');
     $winnerPopup.find('img').attr('src', image);
     $winnerPopup.find('.name').text(name);
     $winnerPopup.find('.code').text(code);
@@ -113,7 +113,7 @@ function showWinner(image, name, code) {
     setTimeout(function() {
         audio(false);
         raffleEnd();
-    },13750)
+    },60000)
 }
 
 function audio(start) {
@@ -136,7 +136,11 @@ function danceLogo(start) {
 
 function raffleEnd() {
     t=0;
-    $('#winner').modal('hide');
+    $winnerPopup.modal('hide');
+    $winnerPopup.find('img').attr('src', '');
+    $winnerPopup.find('.name').text('');
+    $winnerPopup.find('.code').text('');
+    $winnerPopup.find('.prize').text('');
     $('.user').removeClass('hover-blue');
     $feed.animate({'width' : '49%'}, 200);
     $feed.css('visibility', 'visible');
@@ -149,7 +153,4 @@ function raffleEnd() {
 
 $(function() {
     feedUpdateIntervalId = initFeedUpdate(feedUpdateInterval);
-    $('h1 span').click(function() {
-        
-    });
 });

@@ -12,7 +12,9 @@
 </head>
 <body class="screen">
   <h1><span><i>#vse</i><i>mayki</i><i>2016</i></span></h1>
-  <div id="users"></div>
+  <div id="users">
+    <h2>Пока никого нет</h2>
+  </div>
   <div id="instafeed"></div>
   <audio>
     <source src="/music/Nyan_Cat_original.mp3"></source>
@@ -54,6 +56,7 @@
       $('#messages').append($('<li>').text(msg));
       startRaffle(55, msg.prize);
     } else {
+      $('#users').remove();
       var $newUserModal = $('#new_user');
       $newUserModal.find('img').attr('src', msg.img_url);
       $newUserModal.find('.name').text(msg.name);
@@ -61,13 +64,20 @@
       $('<div class="user" style="background-image:url('+ msg.img_url +');"><div class="user-data" data-name="'+ msg.name +'" data-code="'+ msg.code +'" data-src=' + msg.img_url + '></div>').appendTo('#users');
       setTimeout(function() {
         $newUserModal.modal('hide');
+        $newUserModal.find('img').attr('src', '');
+        $newUserModal.find('.name').text('');
       },5000);
-      console.log(msg)
     }
   });
 
   socket.on('guests', function(msg) {
-      console.log(msg);
+      if (msg.length) {
+        $.each(msg, function() {
+          $('<div class="user" style="background-image:url('+ msg.img_url +');"><div class="user-data" data-name="'+ msg.name +'" data-code="'+ msg.code +'" data-src=' + msg.img_url + '></div>').appendTo('#users');
+        });
+      } else {
+        console.log(msg);
+      }
   });
 
 </script>
