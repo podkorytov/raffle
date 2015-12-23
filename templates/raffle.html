@@ -52,10 +52,13 @@
   var socket = io();
 
   socket.on('raffle', function(msg){
-    if (msg.prize) {
+    console.log(msg)
+    if (msg.type) {
       $('#messages').append($('<li>').text(msg));
-      startRaffle(55, msg.prize);
+      startRaffle(msg.winner.code, msg.type);
     } else {
+      console.log(msg.code);
+      var flag = false;
       $('#users h2').remove();
       var $newUserModal = $('#new_user');
       $newUserModal.find('img').attr('src', msg.img_url);
@@ -63,11 +66,12 @@
       $newUserModal.modal('show');
       $('#users .user-data').each(function() {
         if ($(this).attr('data-code') == msg.code) {
-          $(this).addClass('here');
-        } else {
-          $('<div class="user" style="background-image:url('+ msg.img_url +');"><div class="user-data" data-name="'+ msg.name +'" data-code="'+ msg.code +'" data-src=' + msg.img_url + '></div>').appendTo('#users');
+          flag = true;
         }
       });
+      if (!flag) {
+        $('<div class="user" style="background-image:url('+ msg.img_url +');"><div class="user-data" data-name="'+ msg.name +'" data-code="'+ msg.code +'" data-src=' + msg.img_url + '></div>').appendTo('#users');
+      }
       setTimeout(function() {
         $newUserModal.modal('hide');
         $newUserModal.find('img').attr('src', '');

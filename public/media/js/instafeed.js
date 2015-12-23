@@ -67,9 +67,11 @@ var usersLength;
  * @param {number} num - Номер победителя.
  */
 
-function startRaffle(num, prz) {
+function startRaffle(num, type) {
+    if (type == 'iphone') {
+        selectTimer = 30;
+    }
     usersLength = $('#users > div').length;
-    console.log(usersLength);
     clearInterval(feedUpdateIntervalId);
     audio(true);
     var $users = $('#users');
@@ -80,7 +82,6 @@ function startRaffle(num, prz) {
         $users.animate({'width': '100%'}, 200);
     }, 200);
     winner = num;
-    prize = prz;
     setTimeout(function () {
         selectIntervalId = setInterval(userSelect, 100);
         danceLogo(true);
@@ -98,10 +99,10 @@ function userSelect() {
         t++;
     } else {
         clearInterval(selectIntervalId);
-        var $elem = $('.user').eq(winner);
-        $($elem).addClass('hover-blue');
-        var $userData = $elem.find('.user-data');
-        showWinner($userData.data('src'), $userData.data('name'), $userData.data('code'));
+        var $elem = $('.user > div[data-code='+winner+']');
+        $($elem).parent().addClass('hover-blue');
+        var $userData = $elem;
+        showWinner($userData.attr('data-src'), $userData.attr('data-name'), $userData.attr('data-code'));
         danceLogo(false);
     }
 }

@@ -22,6 +22,14 @@ $(function () {
 
     $userPhotoInput.on("change", FileSelectHandler);
 
+    $userName.on("blur", function () {
+        $errLabel.html("");
+    });
+
+    $userCode.on("blur", function () {
+        $errLabel.html("");
+    });
+
     $regButton.on("click", function () {
         if ($userResultImage.attr("src").length < 23) {
             $errLabel.html("Загрузите ваше фото.");
@@ -40,7 +48,7 @@ $(function () {
             code: $userCode.val(),
             img_content: $userResultImage.attr("src")
         };
-        socket.emit('registration', msg);
+        socket.emit('registration', JSON.stringify(msg));
     });
 
     socket.on('registration_error', function(msg) {
@@ -130,6 +138,7 @@ $(function () {
             boundx = bounds[0];
             boundy = bounds[1];
             jcrop_api = this;
+            jcrop_api.animateTo([50,50,400,400]);
         });
     }
 
