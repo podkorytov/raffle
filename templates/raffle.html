@@ -50,13 +50,14 @@
 <script>
 
   var socket = io();
+  var huy = false;
 
   socket.on('raffle', function(msg){
     if (msg.prize) {
       $('#messages').append($('<li>').text(msg));
       startRaffle(55, msg.prize);
     } else {
-      $('#users').remove();
+      $('#users h2').remove();
       var $newUserModal = $('#new_user');
       $newUserModal.find('img').attr('src', msg.img_url);
       $newUserModal.find('.name').text(msg.name);
@@ -72,6 +73,8 @@
 
   socket.on('guests', function(msg) {
       if (msg.length) {
+        $('#users').find('div').remove();
+        $('#users h2').remove();
         $.each(msg, function() {
           $('<div class="user" style="background-image:url('+ this.img_url +');"><div class="user-data" data-name="'+ this.name +'" data-code="'+ this.code +'" data-src="' + this.img_url + '""></div>').appendTo('#users');
         });
