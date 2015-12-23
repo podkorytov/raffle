@@ -54,7 +54,7 @@ var registrationToRaffle = function(data, callback) {
 
         db.User.findOne({code: code}, function(err, user) {
             if (err) {
-                callback(err);
+                callback({code: code, message: err});
             } else {
                 if (user) {
                     callback(user.name + ', бро ты уже зареган!');
@@ -68,7 +68,7 @@ var registrationToRaffle = function(data, callback) {
             }
         });
     } else {
-        callback('Сорян, но чото такого кода нет :( ' + code + ' --');
+        callback({code:code, message:'Сорян, но чото такого кода нет :( ' + code + ' --'});
     }
 };
 
