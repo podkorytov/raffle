@@ -25,8 +25,12 @@
   }
   </style>
     <h1>Admin</h1>
-    <a href="#" id="raffle_start">Начать конкурс</a>
+    <a href="#" id="raffle_start">Начать конкурс (среди всех)</a>
+    <a href="#" id="raffle_start_uniq">Начать конкурс (без победителей)</a>
     <a href="#" id="raffle_start_big">Начать конкурс iPhone</a>
+  <div id="logs">
+      <div id="messages"></div>
+  </div>
 
 <script src="//cdn.socket.io/socket.io-1.2.0.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.js"></script>
@@ -34,17 +38,23 @@
 <script>
 
   var socket = io();
-  var msg = {type:'short'};
+
   $('#raffle_start').on('click', function() {
-    socket.emit('admin', JSON.stringify({type:'not_iphone'}));
-    return false;
-  });
-  $('#raffle_start_big').on('click', function() {
-    socket.emit('admin', JSON.stringify({type:'iphone'}));
+    socket.emit('admin', {type:'not_iphone'});
     return false;
   });
 
-  socket.on('admin', function(msg){
+  $('#raffle_start_big').on('click', function() {
+    socket.emit('admin', {type:'iphone'});
+    return false;
+  });
+
+  $('#raffle_start_uniq').on('click', function() {
+      socket.emit('admin', {type:'uniq'});
+      return false;
+  });
+
+  socket.on('admin_error', function(msg){
     $('#messages').append($('<li>').text(msg));
     console.log(msg);
   });

@@ -1,4 +1,6 @@
-var db = require('./db_model.js'),
+var locks = require('locks'),
+    mutex = locks.createMutex(),
+    db = require('./db_model.js'),
     filesystem = require('./filesystem');
 
 var raffleToAdmin = function(msg) {
@@ -14,25 +16,37 @@ var adminToRegistration = function(msg) {
 };
 
 var adminToRaffle = function(msg, callback) {
-    var type = JSON.parse(msg).type;
+    if (mutex.tryLock()) {
+        var type = msg.type,
+            criteria = {};
 
-    var criteria = {};
-    switch (type) {
-        case 'iphone':
-            criteria.in_corp = true;
-            break;
-        default:
-            break;
-    }
-
-    db.User.getRandom(criteria, function(err, docs) {
-        if (docs.length > 0) {
-            var victorine = new db.Victorine({winner: docs[0], type: type});
-            victorine.save(callback);
-        } else {
-            callback('Нет пользователей для проведения этого типа розыгрыша (' + type + ').');
+        switch (type) {
+            case 'iphone':
+                criteria.in_corp = true;
+                break;
+            case 'uniq':
+                criteria.is_winner = false;
+                break;
+            default:
+                break;
         }
-    });
+
+        db.User.getRandom(criteria, function(err, winner) {
+            if (winner) {
+                var victorine = new db.Victorine({winner: winner, type: type});
+                winner.is_winner = true;
+                winner.save();
+                victorine.save(callback);
+            } else {
+                callback('Нет пользователей для проведения этого типа розыгрыша (' + type + ').');
+            }
+            setTimeout(function() {
+                mutex.unlock();
+            }, 60000);
+        });
+    } else {
+        callback('Нужно подождать завершения предыдущего розыгрыша.');
+    }
 };
 
 var registrationToAdmin = function(msg) {
@@ -57,10 +71,11 @@ var registrationToRaffle = function(data, callback) {
                 callback({code: code, message: err});
             } else {
                 if (user) {
-                    callback({code:code, message:'Извините, данный код уже был использован.'});
+                    callback({code: code, message: 'Извините, данный код уже был использован.'});
                 } else {
                     filesystem.saveFromBase64(img_content, img_name, function(img_url) {
                         msg.img_url = img_url;
+                        msg.is_winner = false;
                         user = new db.User(msg);
                         user.save(callback);
                     });
@@ -68,7 +83,7 @@ var registrationToRaffle = function(data, callback) {
             }
         });
     } else {
-        callback({code:code, message:'Данный код недействительный. Укажите верный код.'});
+        callback({code: code, message: 'Данный код недействительный. Укажите верный код.'});
     }
 };
 
