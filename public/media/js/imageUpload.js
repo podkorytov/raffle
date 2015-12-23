@@ -52,11 +52,16 @@ $(function () {
     });
 
     socket.on('registration_error', function(msg) {
-        $errLabel.html(msg);
+        if (typeof msg !== "undefined" && msg.code == $userCode.val() ) {
+            $errLabel.html(msg);
+        }
     });
 
     socket.on('raffle', function(msg){
-        $errLabel.html(msg);
+        console.log(msg);
+        if (typeof msg !== "undefined" && msg.code == $userCode.val() ) {
+            $errLabel.html("Регистрация прошла успешно!");
+        }
     });
 
     /**
