@@ -72,6 +72,17 @@ var registrationToRaffle = function(data, callback) {
     }
 };
 
+var checkQRCode = function(code, callback) {
+    db.User.findOne({code: code}, function(err, user) {
+        if (user) {
+            user.in_corp = true;
+            user.save(callback);
+        } else {
+            callback(err || {});
+        }
+    });
+};
+
 var guestsListsToRaffle = function(callback) {
     db.User.find({}, callback);
 };
@@ -83,5 +94,6 @@ module.exports = {
     adminToRaffle: adminToRaffle,
     registrationToAdmin: registrationToAdmin,
     registrationToRaffle: registrationToRaffle,
-    guestsListsToRaffle: guestsListsToRaffle
+    guestsListsToRaffle: guestsListsToRaffle,
+    checkQRCode: checkQRCode
 };

@@ -63,4 +63,15 @@ io.on('connection', function(socket) {
             }
         });
     });
+
+    socket.on('check_qr_code', function(msg) {
+        events.checkQRCode(msg, function(error, user) {
+            if (user) {
+                io.emit('raffle', user);
+                io.emit('in_corp', msg);
+            } else {
+                console.log(error);
+            }
+        });
+    });
 });
