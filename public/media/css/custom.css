@@ -46,9 +46,61 @@
 h3 { text-align:left; }
 img.logo { float:left; margin:0 60px; }
 
+.colored-logo h1 {
+    font-family: 'bebas_neuebold', 'Tahoma', sans-serif;
+    font-size: 44px;
+    margin: 30px 0;
+    text-align: center;
+}
+.colored-logo h1 span i { font-style: normal; }
+.colored-logo h1 span i:nth-child(1) { color: #00aeef; }
+.colored-logo h1 span i:nth-child(2) { color: #ec008c; }
+
 .grid__item.one-whole.push--top { font-family:'bebas_neue_regularregular', 'Tahoma', sans-serif; font-size:30px; }
 
-.user-code { margin-top:20px; }
+.reg-form-wrapper {
+    width: 600px;
+    margin: 100px auto;
+}
+
+.user-name, .user-code { margin-bottom:20px; }
+
+.user-img-wrapper {
+    position: relative;
+    border: 1px solid white;
+    border-radius: 3px;
+    width: 106px;
+    height: 106px;
+    overflow: hidden;
+    display: block;
+}
+
+.user-img-wrapper > img {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 100px;
+    height: 100px;
+    z-index: 5;
+}
+
+.user-img-wrapper .help-txt {
+    position: absolute;
+    top: 30px;
+    width: 100%;
+    text-align: center;
+    z-index: 1;
+}
+
+.user-img-wrapper input {
+    width: 106px;
+    height: 106px;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    display: block;
+    z-index: 10;
+}
 
 .user-photo {
     width: 76px;
@@ -68,7 +120,8 @@ button.btn { padding:10px 15px; }
 
 .btn-ok {
     display: block;
-    width: 76px;
+    width: 100%;
+    margin-bottom: 20px;
 }
 
 .btn-modal {

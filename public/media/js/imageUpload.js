@@ -11,7 +11,8 @@ $(function () {
     var $userName = $('.user-name');
     var $userCode = $('.user-code');
     var $userPhotoInput = $('.user-photo');
-    var $userPhotoButton = $('.btn-photo');
+    var $helpImgTxt = $(".user-img-wrapper .help-txt");
+    var $errLabel = $(".errLabel");
     var $modalEditor = $('#modalEditor');
     var $editImg = $('#editImg');
     var $userResultImage = $('#userImg');
@@ -19,15 +20,17 @@ $(function () {
 
     var socket = io();
 
-    $userPhotoButton.click(function (e) {
-        e.preventDefault();
-        $userPhotoInput.click();
-    });
-
     $userPhotoInput.on("change", FileSelectHandler);
 
+    $userName.on("blur", function () {
+        $errLabel.html("");
+    });
+
+    $userCode.on("blur", function () {
+        $errLabel.html("");
+    });
+
     $regButton.on("click", function () {
-        var $errLabel = $("#errLabel");
         if ($userResultImage.attr("src").length < 23) {
             $errLabel.html("Загрузите ваше фото.");
             return;
@@ -49,11 +52,11 @@ $(function () {
     });
 
     socket.on('registration_error', function(msg) {
-        console.log(msg);
+        $errLabel.html(msg);
     });
 
     socket.on('raffle', function(msg){
-        console.log(msg);
+        $errLabel.html(msg);
     });
 
     /**
@@ -83,15 +86,15 @@ $(function () {
         if (file.type.indexOf("image") == 0) {
             var reader = new FileReader();
             reader.onloadstart = function () {
-                $userPhotoButton.attr("disabled", "disabled");
+                $helpImgTxt.show().html("<span>Подождите<br>идет<br>загрузка</span>");
             };
             reader.onerror = function () {
-                $userPhotoButton.removeAttr("disabled");
+                $helpImgTxt.show().html("<span>Упс<br>произошла<br>ошибка</span>");
             };
             reader.onload = function (e) {
                 var image = new Image();
                 image.onload = function () {
-                    $userPhotoButton.removeAttr("disabled");
+                    $helpImgTxt.hide();
                     image.name = file.name;
                     ShowEditorModal(image);
                 };
@@ -135,6 +138,7 @@ $(function () {
             boundx = bounds[0];
             boundy = bounds[1];
             jcrop_api = this;
+            jcrop_api.animateTo([50,50,400,400]);
         });
     }
 
@@ -164,6 +168,7 @@ $(function () {
             var diff = originalWidth / $editImg.width();
             var resultImage = cutUserImage($editImg[0], diff * c.x, diff * c.y, diff * c.w, diff * c.h);
             $userResultImage.attr('src', resultImage);
+            $userResultImage.show();
         }
         // Чтобы не закрывать модальное окно сразу же после mouseup за его областью.
         setTimeout(function () {
