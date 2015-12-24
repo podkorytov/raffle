@@ -52,11 +52,17 @@ $(function () {
     });
 
     socket.on('registration_error', function(msg) {
-        $errLabel.html(msg);
+        console.log(msg);
+        if (typeof msg !== "undefined" && msg.code == $userCode.val() ) {
+            $errLabel.html(msg.message);
+        }
     });
 
     socket.on('raffle', function(msg){
-        $errLabel.html(msg);
+        console.log(msg);
+        if (typeof msg !== "undefined" && msg.code == $userCode.val() ) {
+            $errLabel.html("Регистрация прошла успешно!");
+        }
     });
 
     /**
@@ -94,6 +100,7 @@ $(function () {
             reader.onload = function (e) {
                 var image = new Image();
                 image.onload = function () {
+                    $userPhotoInput.replaceWith( $userPhotoInput = $userPhotoInput.clone( true ) );
                     $helpImgTxt.hide();
                     image.name = file.name;
                     ShowEditorModal(image);
@@ -134,11 +141,11 @@ $(function () {
             onRelease: jcropRelease,
             aspectRatio: 1
         }, function () {
+            jcrop_api = this;
+            jcrop_api.animateTo([50,50,400,400]);
             var bounds = this.getBounds();
             boundx = bounds[0];
             boundy = bounds[1];
-            jcrop_api = this;
-            jcrop_api.animateTo([50,50,400,400]);
         });
     }
 
