@@ -103,7 +103,7 @@ $(function () {
                     $userPhotoInput.replaceWith( $userPhotoInput = $userPhotoInput.clone( true ) );
                     $helpImgTxt.hide();
                     image.name = file.name;
-                    $userResultImage.attr('src', image.src);
+                    $userResultImage.attr('src', convertToPNG(image));
                     $userResultImage.show();
                     // ShowEditorModal(image);
                 };
@@ -210,6 +210,20 @@ $(function () {
         canvas.height = resultUserImgSize;
         var context = canvas.getContext('2d');
         context.drawImage(image, sx, sy, swidth, sheight, 0, 0, canvas.width, canvas.height);
+        return canvas.toDataURL('image/png');
+    }
+
+    /**
+     * Конвертирует изображение в формат PNG.
+     * @param {image} image
+     * @returns {string} - DataURL
+     */
+    function convertToPNG(image) {
+        var canvas = document.createElement('canvas');
+        canvas.width = image.width;
+        canvas.height = image.height;
+        var context = canvas.getContext('2d');
+        context.drawImage(image, 0, 0, image.width, image.height);
         return canvas.toDataURL('image/png');
     }
 
