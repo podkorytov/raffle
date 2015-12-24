@@ -43,6 +43,8 @@ $(function() {
             $errLabel.html("Заполните поле Код.");
             return;
         }
+        $errLabel.html("");
+        $regButton.attr('disabled', 'disabled');
         var msg = {
             name: $userName.val(),
             code: $userCode.val(),
@@ -55,12 +57,20 @@ $(function() {
         if (typeof msg !== "undefined" && msg.code == $userCode.val()) {
             $errLabel.html(msg.message);
         }
+        $('.btn-ok').removeAttr('disabled');
     });
 
     socket.on('raffle', function(msg) {
         if (typeof msg !== "undefined" && msg.code == $userCode.val()) {
             $errLabel.html("Регистрация прошла успешно!");
         }
+        $('.btn-ok').removeAttr('disabled');
+        $('.reg-form-wrapper').find('.input-group')
+            .html("Регистрация прошла успешно!")
+            .css('font-size','28px')
+            .css('color','#ec008c')
+            .css('text-align', 'center')
+            .css('width', '100%');
     });
 
     /**
