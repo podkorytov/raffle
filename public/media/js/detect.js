@@ -13,7 +13,7 @@ socket.on('in_corp', function(msg) {
     var code = $('#user_id').text();
     if (msg.code == code) {
         step4ext(msg.name);
-    } else {
+    } else if (code.length) {
         step2();
     }
 });
