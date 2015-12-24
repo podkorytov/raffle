@@ -146,6 +146,10 @@ $(function () {
             var bounds = this.getBounds();
             boundx = bounds[0];
             boundy = bounds[1];
+            var diff = originalWidth / $editImg.width();
+            var resultImage = cutUserImage($editImg[0], diff * 50, diff * 50, diff * 400, diff * 400);
+            $userResultImage.attr('src', resultImage);
+            $userResultImage.show();
         });
     }
 
