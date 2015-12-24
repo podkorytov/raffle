@@ -69,7 +69,7 @@
         }
       });
       if (!flag) {
-        $('<div class="user" title="' + img.name + '" style="background-image:url('+ msg.img_url +');"><div class="user-data" data-name="'+ msg.name +'" data-code="'+ msg.code +'" data-src=' + msg.img_url + '></div>').appendTo('#users');
+        $('<div class="user" title="' + msg.name + '" style="background-image:url('+ msg.img_url +');"><div class="user-data" data-name="'+ msg.name +'" data-code="'+ msg.code +'" data-src=' + msg.img_url + '></div>').appendTo('#users');
       }
       setTimeout(function() {
         $newUserModal.modal('hide');
@@ -85,7 +85,7 @@
         $('#users h2').remove();
         $.each(msg, function() {
           if (this.code) {
-            $('<div class="user" title="' + img.name + '" style="background-image:url('+ this.img_url +');"><div class="user-data" data-name="'+ this.name +'" data-code="'+ this.code +'" data-src="' + this.img_url + '""></div>').appendTo('#users');
+            $('<div class="user" title="' + msg.name + '" style="background-image:url('+ this.img_url +');"><div class="user-data" data-name="'+ this.name +'" data-code="'+ this.code +'" data-src="' + this.img_url + '""></div>').appendTo('#users');
           }
         });
       } else {
