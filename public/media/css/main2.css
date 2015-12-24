@@ -173,6 +173,10 @@ h1 span.goanim i {
 #winner .prize {
 	font-size:36px;
 }
+#new_user img {
+    max-height:500px;
+    margin:0 auto;
+}
 #new_user p {
 	color:#000;
 	font-size:28px;
