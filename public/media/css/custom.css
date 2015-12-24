@@ -151,3 +151,7 @@ button.btn { padding:10px 15px; }
 .clock-holder .started { position:absolute; width:110px; left:0; top:43%; font-family:'bebas_neue_regularregular', 'Tahoma', sans-serif; font-size:22px; color:#fff; }
 
 label.error { font-family:'bebas_neuelight', 'Tahoma', sans-serif; }
+
+.text-input .user-code {
+    padding-right: 60px;
+}

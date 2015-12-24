@@ -16,8 +16,8 @@ app.get('/reg', function(req, res) {
     res.sendFile(__dirname + '/templates/registration.html');
 });
 
-app.get('/tmr', function(req, res) {
-    res.sendFile(__dirname + '/templates/timer.html');
+app.get('/raffle', function(req, res) {
+    res.sendFile(__dirname + '/templates/raffle.html');
 });
 
 app.get('/ireg', function(req, res) {
@@ -25,7 +25,7 @@ app.get('/ireg', function(req, res) {
 });
 
 app.get('/', function(req, res) {
-    res.sendFile(__dirname + '/templates/raffle.html');
+    res.sendFile(__dirname + '/templates/timer.html');
 });
 
 http.listen(port, function() {
