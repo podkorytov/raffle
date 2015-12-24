@@ -62,15 +62,14 @@ $(function() {
 
     socket.on('raffle', function(msg) {
         if (typeof msg !== "undefined" && msg.code == $userCode.val()) {
-            $errLabel.html("Регистрация прошла успешно!");
+            $('.btn-ok').removeAttr('disabled');
+            $('.reg-form-wrapper').find('.input-group')
+                .html("Регистрация прошла успешно!")
+                .css('font-size','28px')
+                .css('color','#ec008c')
+                .css('text-align', 'center')
+                .css('width', '100%');
         }
-        $('.btn-ok').removeAttr('disabled');
-        $('.reg-form-wrapper').find('.input-group')
-            .html("Регистрация прошла успешно!")
-            .css('font-size','28px')
-            .css('color','#ec008c')
-            .css('text-align', 'center')
-            .css('width', '100%');
     });
 
     /**
