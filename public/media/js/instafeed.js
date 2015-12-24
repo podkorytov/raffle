@@ -1,7 +1,7 @@
 /**
  * Created by a.zakharov on 17.12.2015.
  */
-var hashTag = 'vsemayki';
+var hashTag = 'vsemayki2016';
 var feedLength = 3;
 var feedUpdateInterval = 60000;
 var feedUpdateIntervalId = 0;
