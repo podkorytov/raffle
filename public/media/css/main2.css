@@ -185,3 +185,7 @@ h1 span.goanim i {
 #new_user .name {
 	font-size:36px;
 }
+
+.info .user {
+	line-height: 65px;
+}
