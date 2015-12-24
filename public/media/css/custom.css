@@ -36,12 +36,12 @@
 
 .site-page { max-width:990px; min-width:990px; width:990px; box-sizing:border-box; -webkit-box-sizing:border-box; -moz-box-sizing:border-box; }
 
-.grid h1 { width:990px; font-family:'bebas_neue_regularregular', 'Tahoma', sans-serif; color:#fff; }
+.grid h1 { font-family:'bebas_neue_regularregular', 'Tahoma', sans-serif; color:#fff; }
 
-.chart.chart-seconds,
-.flip-clock-divider.seconds,
-.flip-clock-divider.seconds + ul.flip,
-.flip-clock-divider.seconds + ul.flip + ul.flip { display:none; }
+.chart.chart-days,
+.flip-clock-divider.days,
+.flip-clock-divider.days + ul.flip,
+.flip-clock-divider.days + ul.flip + ul.flip { display:none; }
 
 h3 { text-align:left; }
 img.logo { float:left; margin:0 60px; }
@@ -64,6 +64,10 @@ img.logo { float:left; margin:0 60px; }
 }
 
 .user-name, .user-code { margin-bottom:20px; }
+
+.user-code {
+    padding-right: 60px;
+}
 
 .user-img-wrapper {
     position: relative;
@@ -151,7 +155,3 @@ button.btn { padding:10px 15px; }
 .clock-holder .started { position:absolute; width:110px; left:0; top:43%; font-family:'bebas_neue_regularregular', 'Tahoma', sans-serif; font-size:22px; color:#fff; }
 
 label.error { font-family:'bebas_neuelight', 'Tahoma', sans-serif; }
-
-.text-input .user-code {
-    padding-right: 60px;
-}
