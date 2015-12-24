@@ -42,7 +42,7 @@ var adminToRaffle = function(msg, callback) {
             }
             setTimeout(function() {
                 mutex.unlock();
-            }, 60000);
+            }, 20000);
         });
     } else {
         callback('Нужно подождать завершения предыдущего розыгрыша.');
