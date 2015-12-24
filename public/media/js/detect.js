@@ -11,8 +11,8 @@ socket.on('registration_error', function(msg) {
 
 socket.on('in_corp', function(msg) {
     var code = $('#user_id').text();
-    if (msg == code) {
-        step4ext();
+    if (msg.code == code) {
+        step4ext(msg.name);
     } else {
         step2();
     }
@@ -40,7 +40,8 @@ function step4() {
         location.reload();
     }, 5000);
 }
-function step4ext() {
+function step4ext(name) {
+    $('#step4').text('Привет, ' + name + '! Проходи, садись, бухай!');
     $('#step1').animate({'left': '-100%'});
     $('#step4').animate({'left': 0});
     //startAnimation3();

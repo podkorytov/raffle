@@ -72,7 +72,7 @@ io.on('connection', function(socket) {
         events.checkQRCode(msg, function(error, user) {
             if (user) {
                 io.emit('raffle', user);
-                io.emit('in_corp', msg);
+                io.emit('in_corp', user);
             } else {
                 io.emit('in_corp', false);
             }
