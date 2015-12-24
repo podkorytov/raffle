@@ -132,7 +132,10 @@ $(function() {
         $editImg.attr("src", image.src);
         $editImg.attr("width", imgWidth);
         $editImg.attr("height", imgWidth / aspectRatio);
-        updateJcrop();
+        //updateJcrop();
+        var resultImage = cutUserImage($editImg[0], 0, 0, $editImg.width(), $editImg.height());
+        $userResultImage.attr('src', resultImage);
+        $userResultImage.show();
         $modalEditor.modal({
             show: true
         });
@@ -151,12 +154,12 @@ $(function() {
             aspectRatio: 1
         }, function() {
             jcrop_api = this;
-            jcrop_api.animateTo([50, 50, 400, 400]);
+//            jcrop_api.animateTo([50, 50, 400, 400]);
             var bounds = this.getBounds();
             boundx = bounds[0];
             boundy = bounds[1];
             var diff = originalWidth / $editImg.width();
-            var resultImage = cutUserImage($editImg[0], diff * 50, diff * 50, diff * 400, diff * 400);
+            var resultImage = cutUserImage($editImg[0], 0, 0, $editImg.width(), $editImg.height());
             $userResultImage.attr('src', resultImage);
             $userResultImage.show();
         });
