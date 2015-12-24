@@ -101,7 +101,7 @@ $(function() {
                     $userPhotoInput.replaceWith($userPhotoInput = $userPhotoInput.clone(true));
                     $helpImgTxt.hide();
                     image.name = file.name;
-                    $userResultImage.attr('src', convertToPNG(image));
+                    $userResultImage.attr('src', image.src);
                     $userResultImage.show();
                     // ShowEditorModal(image);
                 };
