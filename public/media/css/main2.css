@@ -91,6 +91,9 @@ h1 span i:nth-child(1) {
 h1 span i:nth-child(2) {
 	color:#ec008c;
 }
+h1 span i:nth-child(3) {
+	color:#672590;
+}
 h1 span.goanim {
 	-webkit-animation: dance .5s linear infinite;
 	animation: dance .5s linear infinite;
@@ -174,7 +177,7 @@ h1 span.goanim i {
 	font-size:36px;
 }
 #new_user img {
-    max-height:500px;
+    max-height:700px;
     margin:0 auto;
 }
 #new_user p {

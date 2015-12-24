@@ -52,7 +52,6 @@
   var socket = io();
 
   socket.on('raffle', function(msg){
-    console.log(msg)
     if (msg.type) {
       $('#messages').append($('<li>').text(msg));
       startRaffle(msg.winner.code, msg.type);

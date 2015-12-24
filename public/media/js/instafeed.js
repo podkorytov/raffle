@@ -68,6 +68,7 @@ var usersLength;
  */
 
 function startRaffle(num, type) {
+    $('#new_user').attr('id', 'new_user_faded');
     if (type == 'iphone') {
         selectTimer = 30;
     }
@@ -139,6 +140,7 @@ function danceLogo(start) {
 }
 
 function raffleEnd() {
+    $('#new_user_faded').attr('id', 'new_user');
     t=0;
     $winnerPopup.modal('hide');
     $winnerPopup.find('img').attr('src', '');
