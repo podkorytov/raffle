@@ -104,7 +104,7 @@ $(function () {
                     $helpImgTxt.hide();
                     image.name = file.name;
                     $userResultImage.attr('src', image.src);
-                    ShowEditorModal(image);
+                    // ShowEditorModal(image);
                 };
                 image.src = e.target.result;
             };
