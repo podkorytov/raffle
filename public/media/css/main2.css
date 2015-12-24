@@ -111,7 +111,7 @@ h1 span.goanim i {
 #users .user {
 	border:6px solid #000;
 	display:inline-block;
-	width:10%;
+	width:9%;
 	overflow: hidden;
 	background: transparent none repeat scroll 50% 50% / cover;
 }
@@ -177,6 +177,8 @@ h1 span.goanim i {
 	font-size:36px;
 }
 #winner img {
+	max-height:700px;
+	margin:0 auto;
 	image-orientation:from-image;
 }
 #new_user img {
