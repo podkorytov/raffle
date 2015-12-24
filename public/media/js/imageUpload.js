@@ -1,4 +1,4 @@
-$(function () {
+$(function() {
 
     var resultUserImgSize = 800;
 
@@ -22,15 +22,15 @@ $(function () {
 
     $userPhotoInput.on("change", FileSelectHandler);
 
-    $userName.on("blur", function () {
+    $userName.on("blur", function() {
         $errLabel.html("");
     });
 
-    $userCode.on("blur", function () {
+    $userCode.on("blur", function() {
         $errLabel.html("");
     });
 
-    $regButton.on("click", function () {
+    $regButton.on("click", function() {
         if ($userResultImage.attr("src").length < 23) {
             $errLabel.html("Загрузите ваше фото.");
             return;
@@ -52,15 +52,13 @@ $(function () {
     });
 
     socket.on('registration_error', function(msg) {
-        console.log(msg);
-        if (typeof msg !== "undefined" && msg.code == $userCode.val() ) {
+        if (typeof msg !== "undefined" && msg.code == $userCode.val()) {
             $errLabel.html(msg.message);
         }
     });
 
-    socket.on('raffle', function(msg){
-        console.log(msg);
-        if (typeof msg !== "undefined" && msg.code == $userCode.val() ) {
+    socket.on('raffle', function(msg) {
+        if (typeof msg !== "undefined" && msg.code == $userCode.val()) {
             $errLabel.html("Регистрация прошла успешно!");
         }
     });
@@ -91,16 +89,16 @@ $(function () {
     function ParseFile(file) {
         if (file.type.indexOf("image") == 0) {
             var reader = new FileReader();
-            reader.onloadstart = function () {
+            reader.onloadstart = function() {
                 $helpImgTxt.show().html("<span>Подождите<br>идет<br>загрузка</span>");
             };
-            reader.onerror = function () {
+            reader.onerror = function() {
                 $helpImgTxt.show().html("<span>Упс<br>произошла<br>ошибка</span>");
             };
-            reader.onload = function (e) {
+            reader.onload = function(e) {
                 var image = new Image();
-                image.onload = function () {
-                    $userPhotoInput.replaceWith( $userPhotoInput = $userPhotoInput.clone( true ) );
+                image.onload = function() {
+                    $userPhotoInput.replaceWith($userPhotoInput = $userPhotoInput.clone(true));
                     $helpImgTxt.hide();
                     image.name = file.name;
                     $userResultImage.attr('src', image.src);
@@ -141,9 +139,9 @@ $(function () {
             onSelect: jcropSelect,
             onRelease: jcropRelease,
             aspectRatio: 1
-        }, function () {
+        }, function() {
             jcrop_api = this;
-            jcrop_api.animateTo([50,50,400,400]);
+            jcrop_api.animateTo([50, 50, 400, 400]);
             var bounds = this.getBounds();
             boundx = bounds[0];
             boundy = bounds[1];
@@ -183,7 +181,7 @@ $(function () {
             $userResultImage.show();
         }
         // Чтобы не закрывать модальное окно сразу же после mouseup за его областью.
-        setTimeout(function () {
+        setTimeout(function() {
             $modalEditor.data('bs.modal').options.keyboard = true;
             $modalEditor.data('bs.modal').options.backdrop = true;
         }, 100);

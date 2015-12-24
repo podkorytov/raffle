@@ -8,9 +8,8 @@ socket.on('registration_error', function(msg) {
 });
 
 socket.on('in_corp', function(msg) {
-    console.log(msg);
-    var a = $('#user_id').text();
-    if (msg == a) {
+    var code = $('#user_id').text();
+    if (msg == code) {
         step4ext();
     } else {
         step2();
@@ -23,7 +22,7 @@ function step2() {
     startAnimation1();
     setTimeout(function() {
         startButton(event);
-        console.log('voice recognition started')
+        console.log('voice recognition started');
     }, 1000)
 }
 function step3() {
@@ -37,15 +36,15 @@ function step4() {
     //startAnimation3();
     setTimeout(function() {
         location.reload();
-    },5000);
+    }, 5000);
 }
 function step4ext() {
     $('#step1').animate({'left': '-100%'});
     $('#step4').animate({'left': 0});
     //startAnimation3();
-        setTimeout(function() {
+    setTimeout(function() {
         location.reload();
-    },5000);
+    }, 5000);
 }
 
 function startTimer() {
