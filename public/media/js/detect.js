@@ -3,8 +3,10 @@ var userDataObject = {},
     rightCode = true;
 
 socket.on('registration_error', function(msg) {
-    rightCode = false;
-    console.log(msg);
+    var code = $('#user_id').text();
+    if (msg.code == code) {
+        $('#step4').text(msg.message);
+    }
 });
 
 socket.on('in_corp', function(msg) {
