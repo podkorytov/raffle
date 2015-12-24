@@ -176,9 +176,13 @@ h1 span.goanim i {
 #winner .prize {
 	font-size:36px;
 }
+#winner img {
+	image-orientation:from-image;
+}
 #new_user img {
     max-height:700px;
     margin:0 auto;
+	image-orientation:from-image;
 }
 #new_user p {
 	color:#000;
