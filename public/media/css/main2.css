@@ -177,12 +177,12 @@ h1 span.goanim i {
 	font-size:36px;
 }
 #winner img {
-	max-height:700px;
+	max-height:500px;
 	margin:0 auto;
 	image-orientation:from-image;
 }
 #new_user img {
-    max-height:700px;
+    max-height:500px;
     margin:0 auto;
 	image-orientation:from-image;
 }
