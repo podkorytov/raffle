@@ -3,7 +3,7 @@
  */
 var hashTag = 'vsemayki2016';
 var feedLength = 100;
-var feedUpdateInterval = 60000;
+var feedUpdateInterval = 30*60*1000;
 var feedUpdateIntervalId = 0;
 var $feed = $('#instafeed');
 var token = '19182223.6e63162.3f6b8b2a656e446f99519374978261b0';
