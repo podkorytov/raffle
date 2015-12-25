@@ -25,7 +25,7 @@ app.get('/ireg', function(req, res) {
 });
 
 app.get('/', function(req, res) {
-    res.sendFile(__dirname + '/templates/timer.html');
+    res.sendFile(__dirname + '/templates/raffle.html');
 });
 
 http.listen(port, function() {
