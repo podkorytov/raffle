@@ -133,7 +133,8 @@ h1 span.goanim i {
 #instafeed {
 	display:inline-block;
 	overflow:hidden;
-	width:49%;
+	width:50%;
+	margin:0 auto;
 }
 #instafeed .onephoto {
 	margin:5px auto 0;
