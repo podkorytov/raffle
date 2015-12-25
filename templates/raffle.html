@@ -12,9 +12,9 @@
 </head>
 <body class="screen">
   <h1><span><i>#vse</i><i>mayki</i><i>2016</i></span></h1>
-  <div id="users">
+<!--  <div id="users">
     <h2>Пока никого нет</h2>
-  </div>
+  </div>-->
   <div id="instafeed"></div>
   <audio>
     <source src="/music/Nyan_Cat_original.mp3"></source>
@@ -47,5 +47,52 @@
 <script src="/media/js/instafeed.js"></script>
 <script src="//cdn.socket.io/socket.io-1.2.0.js"></script>
 <script src="/socket.io/socket.io.js"></script>
+<script>
+
+/*  var socket = io();
+
+  socket.on('raffle', function(msg){
+    if (msg.type) {
+      $('#messages').append($('<li>').text(msg));
+      startRaffle(msg.winner.code, msg.type);
+    } else {
+      console.log(msg.code);
+      var flag = false;
+      $('#users h2').remove();
+      var $newUserModal = $('#new_user');
+      $newUserModal.find('img').attr('src', msg.img_url);
+      $newUserModal.find('.name').text(msg.name);
+      $newUserModal.modal('show');
+      $('#users .user-data').each(function() {
+        if ($(this).attr('data-code') == msg.code) {
+          flag = true;
+        }
+      });
+      if (!flag) {
+        $('<div class="user" title="' + msg.name + '" style="background-image:url('+ msg.img_url +');"><div class="user-data" data-name="'+ msg.name +'" data-code="'+ msg.code +'" data-src=' + msg.img_url + '></div>').appendTo('#users');
+      }
+      setTimeout(function() {
+        $newUserModal.modal('hide');
+        $newUserModal.find('img').attr('src', '');
+        $newUserModal.find('.name').text('');
+      },5000);
+    }
+  });
+
+  socket.on('guests', function(msg) {
+      if (msg.length) {
+        $('#users').find('div').remove();
+        $('#users h2').remove();
+        $.each(msg, function() {
+          if (this.code) {
+            $('<div class="user" title="' + this.name + '" style="background-image:url('+ this.img_url +');"><div class="user-data" data-name="'+ this.name +'" data-code="'+ this.code +'" data-src="' + this.img_url + '""></div>').appendTo('#users');
+          }
+        });
+      } else {
+        console.log(msg);
+      }
+  });*/
+
+</script>
 </body>
 </html>
